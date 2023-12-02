@@ -8,19 +8,26 @@
 
         {% endblock %}
     </title>
+     {% block scripts %}
+     <!---->
+     {% endblock scripts %}
+
+     {% block extrascripts %}
+     <!---->
+     {% endblock extrascripts%}
+
+     {% block css %}
+     
+     {% endblock css %}
+
+     {% block extracss %}
+     <!---->
+     {% endblock extracss %}
 </head>
 <body>
-    {% block content %}
-    <nav>
-
-       
-        <a href="{% url 'signup' %}">Sign Up</a>
-
-        <a href="{% url 'login' %}">Login</a>
-
-
-    </nav>
-    {% endblock %}
    
+    {% block content %}
+
+    {% endblock %}
 </body>
 </html>
