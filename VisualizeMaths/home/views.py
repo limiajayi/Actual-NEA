@@ -6,5 +6,13 @@ from django.template import loader
 
 def home(request):
   """Returns the Home Page of this website"""
-  template = loader.get_template('homepage.html')
-  return HttpResponse(template.render())
+  return render(request, 'home/homepage.html')
+
+def login(request):
+  """Returns the Login Page"""
+  return render(request, 'home/login.html')
+
+
+def signup(request):
+  """Returns the Sign Up Page"""
+  return render(request, 'home/signup.html')
