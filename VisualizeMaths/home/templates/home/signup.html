@@ -5,6 +5,39 @@ Sign Up
 {% endblock %}
 
 {% block content %}
+<a href="{% url 'home' %}">Back to Home</a>
 
+<form action="" method="post">
+{% csrf_token %}
+{{ form.as_p }}
+
+<div id="instructions">
+
+    <p>{{ test_one }}</p>
+    <p>{{ test_two }}</p>
+    <p>{{ test_three }}</p>
+    <p>{{ test_four }}</p>
+    <p>{{ test_five }}</p>
+    <p>{{ test_six }}</p>
+
+    <p>Select Yes for Maths.</p>
+    <p>Select Yes for Further Maths if you take the subject.</p>
+    
+</div>
+
+{% if success %}
+<p>{{ success }}</p>
+<a href="{% url 'login' %}">Login Now!</a>
+{% endif %}
+
+{% if error %}
+<p>{{ error }}</p>
+<p>Your Username must be unique</p>
+<p>Your Username must have at least six characters.</p>
+<p>Your password must have at least eight characters, one number and one special character.</p>
+{% endif %}
+
+<button type="submit">Submit</button>
+</form>
 
 {% endblock %}
