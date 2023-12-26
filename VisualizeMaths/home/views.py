@@ -16,8 +16,8 @@ def login(request):
 
 def checkMaths(value):
    """Checks that the maths field has been ticked."""
-   str = "Maths is a required Field."
-   if value == "unknown":
+   str = "Username, Password and Maths are required fields."
+   if value == "unknown" or value == "false":
       return str
    else:
       return True
@@ -86,7 +86,7 @@ def signup(request):
         test_six = checkCharacters(passsword)
 
         #Checks the username length and the password length
-        if test_two != True or test_four != True:
+        if test_two != True and test_four != True:
            context = {
               'test_two': test_two,
               'test_four': test_four,
@@ -98,6 +98,14 @@ def signup(request):
         if test_one != True:
            context = {
               'test_one': test_one,
+              'form': form
+           }
+           return render(request, 'home/signup.html', context)
+        
+        #Checks that the username is six characters long        
+        if test_two != True:
+           context = {
+              'test_two': test_two,
               'form': form
            }
            return render(request, 'home/signup.html', context)
