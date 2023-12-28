@@ -16,3 +16,9 @@ def dash(request):
         return render(request, 'students/dash.html', context)
     else:
         return redirect('/home/signup/')
+    
+def logout(request):
+    """URL for the user to logout"""
+    if 'user_id' in request.session:
+        del request.session['user_id']
+    return redirect('/home/')

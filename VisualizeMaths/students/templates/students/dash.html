@@ -5,14 +5,16 @@ Student Dash
 
 {% block content %}
 <nav>
+    <!--Navigate to other pages-->
     Hello {{ user.username }}
     <div>
         <a href="#">Graphing Calculator</a>
-        <a href="#">Log Out</a>
+        <a href="{% url 'logout' %}">Log Out</a>
     </div>
 </nav>
 <main>
     <div>
+        <!--Show maths link and progress bar if a user does maths-->
         {% if user.maths == True %}
         <a href="#">
             Maths
@@ -20,15 +22,16 @@ Student Dash
         <progress value="50" max="500"></progress>
         {% endif %}
 
-
+        <!--Show further maths link and progress bar if a user does further maths-->
         {% if user.further_maths == True %}
         <br>
         <a href="#">
             Further Maths
         </a>
-        <progress value="50" max="500"></progress>
+        <progress value="50" max="450"></progress>
         {% endif %}
 
+        <!--Recommendation system-->
         <div>
         <p>Would you like to try these topics?</p>
         {% if user.maths == True %}
@@ -40,9 +43,12 @@ Student Dash
         {% endif %}
         </div>
 
+        <!--Weekly assessments-->
         <div>
-            <a href="”>Weekly Assessments</a>
+            <a href="#">Weekly Assessments</a>
         </div>
+
+        <!--Question Page link-->
         <div>     
             <a href="">What topic would you like to practise today?</a>
         </div>
