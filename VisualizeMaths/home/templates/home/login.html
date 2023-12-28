@@ -5,4 +5,22 @@ Login
 
 {% block content %}
 
+<a href="{% url 'home' %}">Back to Home</a>
+
+<form action="" method="post">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    {% if password_error %}
+    <p>{{ password_error }}</p>
+    {% endif %}
+
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
+
+    <button type="submit">Submit</button>
+</form>
+
 {% endblock %}

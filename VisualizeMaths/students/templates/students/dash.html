@@ -1,0 +1,52 @@
+{% extends 'home/base.html' %}
+{% block title %}
+Student Dash
+{% endblock %}
+
+{% block content %}
+<nav>
+    Hello {{ user.username }}
+    <div>
+        <a href="#">Graphing Calculator</a>
+        <a href="#">Log Out</a>
+    </div>
+</nav>
+<main>
+    <div>
+        {% if user.maths == True %}
+        <a href="#">
+            Maths
+        </a>
+        <progress value="50" max="500"></progress>
+        {% endif %}
+
+
+        {% if user.further_maths == True %}
+        <br>
+        <a href="#">
+            Further Maths
+        </a>
+        <progress value="50" max="500"></progress>
+        {% endif %}
+
+        <div>
+        <p>Would you like to try these topics?</p>
+        {% if user.maths == True %}
+        <a href="#"> mathstopic </a>
+        {% endif %}
+
+        {% if user.further_maths == True %}
+        <a href="#"> fmathstopic </a>
+        {% endif %}
+        </div>
+
+        <div>
+            <a href="”>Weekly Assessments</a>
+        </div>
+        <div>     
+            <a href="">What topic would you like to practise today?</a>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
