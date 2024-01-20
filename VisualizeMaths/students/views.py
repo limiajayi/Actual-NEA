@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from home.models import StudentUser
-from .models import MathsPoints, FurtherMathsPoints
+from .models import MathsPoints, FurtherMathsPoints, Question
+from .forms import QuestionForm
 
 # Create your views here.
 def get_user(request):
@@ -49,3 +50,28 @@ def logout(request):
     if 'user_id' in request.session:
         del request.session['user_id']
     return redirect('/home/')
+
+def qform(request):
+    form = QuestionForm()
+    if request.method == 'POST':
+        subject = request.POST['subject']
+        topic = request.POST['topic']
+        difficulty = request.POST['difficulty']
+        number = request.POST['number_of_questions']
+        return redirect('/students/question/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty + '&number=' + number)
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'students/qform.html', context)
+
+def question(request):
+    subject =  request.GET.get('subject')
+    topic =  request.GET.get('topic')
+    difficulty =  request.GET.get('difficulty')
+    student_questions = Question.objects.filter(subject=subject, topic=topic, difficulty=difficulty)
+
+    context = {
+        'student_questions': student_questions,
+    }
+    return render(request, 'students/question.html', context)

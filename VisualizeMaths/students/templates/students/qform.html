@@ -1,0 +1,17 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}
+Question Form
+{% endblock %}
+
+{% block content %}
+
+<form method="POST">
+      <legend>Select Your Topics</legend>
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <button type="submit" name="">Submit</button>
+  </form>
+
+{% endblock %}
