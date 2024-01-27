@@ -9,51 +9,46 @@ Question Page
 {% endblock scripts %}
 
 {% block content %}
-
 <nav>
   <a href="{% url 'dash' %}">Back To Student Dash</a>
   <a href="#">Graphing Calculator</a>
 </nav>
 
 {% if student_questions %}
+<form action="" method="post">
+  {% csrf_token %}
+  {% for q in student_questions %}
+    <img src="{{ q.image.url }}" alt="">
+    <br>
+    <label for="">{{ q.question }}</label>
+    <br>
+    <input type="text" name="{{ q.question }}" id="">
+    <br>
 
-  <form action="" method="post">
-    {% csrf_token %}
-    {% for q in student_questions %}
-
-    <!--Uses a for loop to show questions from the query set of the user -->
+    <!-- For if the user is correct or wrong-->
     <div>
-      <br>
-          <label for="">
-            {{ q.question }}
-          </label>
-          <br>
-          
-          <br>
-          
-          <math-field name="{{ q.question }}"></math-field>
-    </div>
-      <br> 
+      <div>
+        <!--If a user is correct they are shown the mark scheme-->
+        {% if good %}
+        <p>{{ good }}</p>
+        <img src="{{ q.mark_scheme.url }}" alt="">
+        {% endif %}
+      </div>
 
-
-    <div>
-      {% if good %}
-      <p>{{ good }}</p>
-      <img src="{{ q.mark_scheme.url }}" alt="">
-      {% endif %}
-    </div>
-
-    <div>
-      {% if bad %}
-      <p>{{ bad }}</p>
-      <img src="{{ q.mark_scheme.url }}" alt="">
-      {% endif %}
+      <div>
+        <!--If a user is incorrect they are shown the worked solution and mark scheme-->
+        {% if bad %}
+        <p>{{ bad }}</p>
+        <img src="{{ q.mark_scheme.url }}" alt="">
+        <img src="{{ q.worked_solutions.url }}" alt="">
+        {% endif %}
+      </div>
     </div>
 
-    <script defer src="//unpkg.com/mathlive"> </script>
-   {% endfor %}
+  {% endfor %}
+  <button type="submit">Submit</button>
+</form>
 
-   <button type="submit">Submit</button>
-  </form>
 {% endif %}
+<script defer src="//unpkg.com/mathlive"></script>
 {% endblock %}

@@ -1,7 +1,7 @@
 from django import forms
 from .models import Question
 
-NUM_CHOICES = [tuple([x,x]) for x in range(10, 45, 10)]
+NUM_CHOICES = [tuple([x,x]) for x in range(1, 5, 1)]
 
 class QuestionForm(forms.ModelForm):
     number_of_questions = forms.IntegerField(widget=forms.Select(choices=NUM_CHOICES))

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from home.models import StudentUser
 from .models import MathsPoints, FurtherMathsPoints, Question
 from .forms import QuestionForm
+from random import shuffle
 
 # Create your views here.
 def get_user(request):
@@ -65,13 +66,115 @@ def qform(request):
     }
     return render(request, 'students/qform.html', context)
 
+def determine_points(word):
+    if word == "Easy":
+        return 5
+    elif word == "Medium":
+        return 10
+    elif word == "Hard":
+        return 15
+    
+def addToPointsMaths(request, topic, difficulty):
+    """Procedure to increment a users maths points based on the topic and difficulty"""
+    user = get_user(request)
+    user_in_points = MathsPoints.objects.get(username=user)
+    if topic == "Quadratics":
+        user_in_points.quadratics += determine_points(difficulty)
+    elif topic == "Equations and Inequalities":
+        user_in_points.equations_and_inequalities += determine_points(difficulty)
+    elif topic == "Graphs and Transformations":
+        user_in_points.graphs_and_transformations += determine_points(difficulty)
+    elif topic == "Straight Line Graphs":
+        user_in_points.straight_line_graphs += determine_points(difficulty)
+    elif topic == "Circles":
+        user_in_points.circles += determine_points(difficulty)
+    elif topic == "Trigonometry":
+        user_in_points.trigonometry += determine_points(difficulty)
+    elif topic == "Differentiation":
+        user_in_points.differentiation += determine_points(difficulty)
+    elif topic == "Integration":
+        user_in_points.integration += determine_points(difficulty)
+    elif topic == "2D Vectors":
+        user_in_points.two_d_vectors += determine_points(difficulty)
+    user_in_points.save()
+
+def addToPointsFurtherMaths(request, topic, difficulty):
+    user = get_user(request)
+    user_in_points = FurtherMathsPoints.objects.get(username=user)
+    if topic == "Argand Diagrams":
+        user_in_points.argand_diagrams += determine_points(difficulty)
+    elif topic == "Volumes of Revolution":
+        user_in_points.volumes_of_revolution += determine_points(difficulty)
+    elif topic == "Methods In Calculus":
+        user_in_points.methods_in_calculus += determine_points(difficulty)
+    elif topic == "Straight Line Graphs":
+        user_in_points.straight_line_graphs += determine_points(difficulty)
+    elif topic == "Matrices":
+        user_in_points.matrices += determine_points(difficulty)
+    elif topic == "Polar Coordinates":
+        user_in_points.polar_coordinates += determine_points(difficulty)
+    elif topic == "Hyperbolic Functions":
+        user_in_points.hyperbolic_functions += determine_points(difficulty)
+    elif topic == "Differentiation":
+        user_in_points.differentiation += determine_points(difficulty)
+    elif topic == "Integration":
+        user_in_points.integration += determine_points(difficulty)
+    elif topic == "3D Vectors":
+         user_in_points.three_d_vectors += determine_points(difficulty)
+    user_in_points.save()
+
 def question(request):
     subject =  request.GET.get('subject')
     topic =  request.GET.get('topic')
     difficulty =  request.GET.get('difficulty')
-    student_questions = Question.objects.filter(subject=subject, topic=topic, difficulty=difficulty)
+    number = request.GET.get('number')
+    student_questions = Question.objects.filter(subject=subject, topic=topic, difficulty=difficulty)[:int(number)]
 
-    context = {
+    #if a user submits their answers in the question page
+    if request.method == 'POST':
+        #if the subject is maths
+        if subject == "Maths":
+            for q in student_questions:
+                #if the answer in the question table is equal to the answer entered by the user
+                if q.answer == request.POST.get(q.question):
+                    addToPointsMaths(request, topic, difficulty)
+                    good_message = "Correct Answer!!"
+                    context = {
+                    'good': good_message,
+                    'student_questions': student_questions,
+                    }
+                    return render(request, 'students/question.html', context)
+                #if the answer in the question table and answer entered by the user are not equal
+                else:
+                    bad_message = "Incorrect Answer."
+                    context = {
+                    'student_questions': student_questions,
+                    'bad': bad_message,
+                    }
+                    return render(request, 'students/question.html', context)
+        #if the subject is further maths
+        else:
+            for q in student_questions:
+                #if the answer in the question table is equal to the answer entered by the user
+                if q.answer == request.POST.get(q.question):
+                    addToPointsFurtherMaths(request, topic, difficulty)
+                    good_message = "Correct Answer!!"
+                    context = {
+                    'good': good_message,
+                    'student_questions': student_questions,
+                    }
+                    return render(request, 'students/question.html', context)
+
+                else:
+                    bad_message = "Incorrect Answer."
+                    context = {
+                    'student_questions': student_questions,
+                    'bad': bad_message,
+                    }
+                    return render(request, 'students/question.html', context)
+    # if a user does not submit their answers
+    else:
+        context = {
         'student_questions': student_questions,
-    }
-    return render(request, 'students/question.html', context)
+        }
+        return render(request, 'students/question.html', context)
