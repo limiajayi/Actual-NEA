@@ -6,12 +6,21 @@ Question Form
 
 {% block content %}
 
+{% if form %}
 <form method="POST">
-      <legend>Select Your Topics</legend>
-      {% csrf_token %}
-      {{ form.as_p }}
+  <legend>Select Your Questions</legend>
+  {% csrf_token %}
+  {{ form.as_p }}
 
-      <button type="submit" name="">Submit</button>
-  </form>
+  <button type="submit" name="">Submit</button>
+</form>
+{% endif %}
+
+{% if message %}
+
+{{ message }}
+<a href="{% url 'qform' %}">Please filter for different questions.</a>
+
+{% endif %}
 
 {% endblock %}

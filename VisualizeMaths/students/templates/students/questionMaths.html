@@ -4,17 +4,21 @@ Question Page
 {% endblock %}
 {% block scripts %}
 
+<!--Code below uses latex to render the maths on the page-->
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 {% endblock scripts %}
 
 {% block content %}
+<!--Links to return to previous pages or graphing calculator.-->
 <nav>
   <a href="{% url 'dash' %}">Back To Student Dash</a>
+  <a href="{% url 'qform' %}">Want different questions?</a>
   <a href="#">Graphing Calculator</a>
 </nav>
 
 {% if student_questions %}
+<!--Shows the questions, image and input box for users to enter their answers-->
 <form action="" method="post">
   {% csrf_token %}
   {% for q in student_questions %}
@@ -22,8 +26,16 @@ Question Page
     <br>
     <label for="">{{ q.question }}</label>
     <br>
-    <input type="text" name="{{ q.question }}" id="">
+    <math-field name="{{ q.question }}"></math-field>
+    <!--<input type="text" name="{{ q.question }}" id="">-->
     <br>
+
+    <!--If the user has no input-->
+    <div>
+      {% if message %}
+      <p>{{ message }}</p>
+      {% endif %}
+    </div>
 
     <!-- For if the user is correct or wrong-->
     <div>
@@ -40,6 +52,7 @@ Question Page
         {% if bad %}
         <p>{{ bad }}</p>
         <img src="{{ q.mark_scheme.url }}" alt="">
+        <br>
         <img src="{{ q.worked_solutions.url }}" alt="">
         {% endif %}
       </div>
@@ -50,5 +63,6 @@ Question Page
 </form>
 
 {% endif %}
+<!--Script for the math-field element-->
 <script defer src="//unpkg.com/mathlive"></script>
 {% endblock %}

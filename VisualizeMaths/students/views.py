@@ -52,21 +52,70 @@ def logout(request):
         del request.session['user_id']
     return redirect('/home/')
 
+def testQform(subject, topic):
+    "Returns false for topics and subjects that cannot be used as filters."
+    if subject == "Maths" and topic == "Argand Diagrams":
+        return False
+    elif subject == "Maths" and topic == "Volumes of Revolution":
+        return False
+    elif subject == "Maths" and topic == "Methods In Calculus":
+        return False
+    elif subject == "Maths" and topic == "Matrices":
+        return False
+    elif subject == "Maths" and topic == "Polar Coordinates":
+        return False
+    elif subject == "Maths" and topic == "Hyperbolic Functions":
+        return False
+    elif subject == "Further Maths" and topic == "Quadratics":
+        return False
+    elif subject == "Further Maths" and topic == "Equations and Inequalities":
+        return False
+    elif subject == "Further Maths" and topic == "Graphs and Transformations":
+        return False
+    elif subject == "Further Maths" and topic == "Straight Line Graphs":
+        return False
+    elif subject == "Further Maths" and topic == "Circles":
+        return False
+    elif subject == "Further Maths" and topic == "Trigonometry":
+        return False
+    elif subject == "Further Maths" and topic == "2D Vectors":
+        return False
+    else:
+        return True
+
 def qform(request):
+    """Collects the subject, topic, difficulty and number of questions a user wants to do and redirects them to the question page."""
     form = QuestionForm()
+
+    #if a user submits the form
     if request.method == 'POST':
         subject = request.POST['subject']
         topic = request.POST['topic']
         difficulty = request.POST['difficulty']
         number = request.POST['number_of_questions']
-        return redirect('/students/question/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty + '&number=' + number)
-    
+
+        #if testQform() is false, return an error message to users
+        if testQform(subject, topic) == False:
+            message = "There are no " + topic + " questions in " + subject + "."
+            context = {
+                'message': message,
+            }
+            return render(request, 'students/qform.html', context)
+        #else redirect the user to the appropriate question page
+        elif subject == "Maths":
+            return redirect('/students/questionMaths/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty + '&number=' + number)
+        
+        elif subject == "Further Maths":
+            return redirect('/students/questionFurtherMaths/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty + '&number=' + number)
+        
+    #if the form hasn't been submitted yet
     context = {
-        'form': form
+        'form': form,
     }
     return render(request, 'students/qform.html', context)
 
 def determine_points(word):
+    """Returns the number of points to be added to a users topics depending on the difficulty."""
     if word == "Easy":
         return 5
     elif word == "Medium":
@@ -99,6 +148,7 @@ def addToPointsMaths(request, topic, difficulty):
     user_in_points.save()
 
 def addToPointsFurtherMaths(request, topic, difficulty):
+    """Procedure to increment a users further maths points based on the topic and difficulty"""
     user = get_user(request)
     user_in_points = FurtherMathsPoints.objects.get(username=user)
     if topic == "Argand Diagrams":
@@ -123,58 +173,103 @@ def addToPointsFurtherMaths(request, topic, difficulty):
          user_in_points.three_d_vectors += determine_points(difficulty)
     user_in_points.save()
 
-def question(request):
-    subject =  request.GET.get('subject')
-    topic =  request.GET.get('topic')
-    difficulty =  request.GET.get('difficulty')
-    number = request.GET.get('number')
-    student_questions = Question.objects.filter(subject=subject, topic=topic, difficulty=difficulty)[:int(number)]
-
-    #if a user submits their answers in the question page
-    if request.method == 'POST':
-        #if the subject is maths
-        if subject == "Maths":
-            for q in student_questions:
-                #if the answer in the question table is equal to the answer entered by the user
-                if q.answer == request.POST.get(q.question):
-                    addToPointsMaths(request, topic, difficulty)
-                    good_message = "Correct Answer!!"
-                    context = {
-                    'good': good_message,
-                    'student_questions': student_questions,
-                    }
-                    return render(request, 'students/question.html', context)
-                #if the answer in the question table and answer entered by the user are not equal
-                else:
-                    bad_message = "Incorrect Answer."
-                    context = {
-                    'student_questions': student_questions,
-                    'bad': bad_message,
-                    }
-                    return render(request, 'students/question.html', context)
-        #if the subject is further maths
-        else:
-            for q in student_questions:
-                #if the answer in the question table is equal to the answer entered by the user
-                if q.answer == request.POST.get(q.question):
-                    addToPointsFurtherMaths(request, topic, difficulty)
-                    good_message = "Correct Answer!!"
-                    context = {
-                    'good': good_message,
-                    'student_questions': student_questions,
-                    }
-                    return render(request, 'students/question.html', context)
-
-                else:
-                    bad_message = "Incorrect Answer."
-                    context = {
-                    'student_questions': student_questions,
-                    'bad': bad_message,
-                    }
-                    return render(request, 'students/question.html', context)
-    # if a user does not submit their answers
+def testUserInput(input):
+    """Tests if the user entered nothing."""
+    response = "Please enter an answer."
+    if input == "":
+        return response
     else:
-        context = {
-        'student_questions': student_questions,
-        }
-        return render(request, 'students/question.html', context)
+        return True
+
+def questionMaths(request):
+    """Returns the maths question page."""
+    subject =  request.GET.get('subject')
+    if subject == "Maths":
+        topic =  request.GET.get('topic')
+        difficulty =  request.GET.get('difficulty')
+        number = request.GET.get('number')
+        student_questions = Question.objects.filter(subject="Maths", topic=topic, difficulty=difficulty)[:int(number)]
+
+        #if a user submits their answers in the question page
+        if request.method == 'POST':
+                for q in student_questions:
+
+                    #if the user has entered something
+                    if testUserInput(request.POST.get(q.question)) == True:
+                    #if the answer in the question table is equal to the answer entered by the user
+                        if q.answer == request.POST.get(q.question):
+                            addToPointsMaths(request, topic, difficulty)
+                            good_message = "Correct Answer!!"
+                            context = {
+                            'good': good_message,
+                            'student_questions': student_questions,
+                            }
+                            return render(request, 'students/questionMaths.html', context)
+                #if the answer in the question table and answer entered by the user are not equal
+                        else:
+                            bad_message = "Incorrect Answer."
+                            context = {
+                            'student_questions': student_questions,
+                            'bad': bad_message,
+                            }
+                            return render(request, 'students/questionMaths.html', context)
+                    else:
+                        message = testUserInput(request.POST.get(q.question))
+                        context = {
+                            'student_questions': student_questions,
+                            'message': message,
+                        }
+                        return render(request, 'students/questionMaths.html', context)
+       
+        # if a user has not yet submit their answers
+        else:
+            context = {
+            'student_questions': student_questions,
+            }
+            return render(request, 'students/questionMaths.html', context)
+    
+def questionFurtherMaths(request):
+    """Returns the further maths question page."""
+    subject =  request.GET.get('subject')
+    if subject == "Further Maths":
+        topic =  request.GET.get('topic')
+        difficulty =  request.GET.get('difficulty')
+        number = request.GET.get('number')
+        student_questions = Question.objects.filter(subject="Further Maths", topic=topic, difficulty=difficulty)[:int(number)]
+
+        if request.method == 'POST':
+            for q in student_questions:
+
+                if testUserInput(request.POST.get(q.question)) == True:
+
+                    #if the answer in the question table is equal to the answer entered by the user
+                    if q.answer == request.POST.get(q.question):
+                        addToPointsFurtherMaths(request, topic, difficulty)
+                        good_message = "Correct Answer!!"
+                        context = {
+                        'good': good_message,
+                        'student_questions': student_questions,
+                        }
+                        return render(request, 'students/questionFurtherMaths.html', context)
+                    #if the answer in the question table and the answer entered by the user are not equal
+                    else:
+                        bad_message = "Incorrect Answer."
+                        context = {
+                        'student_questions': student_questions,
+                        'bad': bad_message,
+                        }
+                        return render(request, 'students/questionFurtherMaths.html', context)
+                else:
+                    message = testUserInput(request.POST.get(q.question))
+                    context = {
+                        'student_questions': student_questions,
+                        'message': message,
+                        }
+                    return render(request, 'students/questionFurtherMaths.html', context)
+                
+        # if a user has not yet submit their answers
+        else:
+            context = {
+            'student_questions': student_questions,
+            }
+            return render(request, 'students/questionFurtherMaths.html', context)
