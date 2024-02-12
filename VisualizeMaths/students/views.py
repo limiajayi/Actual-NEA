@@ -31,6 +31,64 @@ def appendToFurtherMaths(request):
         new_user = FurtherMathsPoints(username=user)
         new_user.save()
 
+def total_points_maths(request):
+    """Adds up the points a user has in maths"""
+    user = get_user(request)
+    user_in_maths = MathsPoints.objects.get(username=user)
+    fields = [f for f in MathsPoints._meta.get_fields() if f.name not in  ['id', 'username']]
+    total = 0
+
+    for f in fields:
+        value = getattr(user_in_maths, f.name)
+        total += value
+    return total
+
+def total_points_fmaths(request):
+    """Adds up the points a user has in further maths"""
+    user = get_user(request)
+
+    #checks if the user is doing further maths
+    if user.further_maths == True:
+        user_in_fmaths = FurtherMathsPoints.objects.get(username=user)
+        fields = [f for f in FurtherMathsPoints._meta.get_fields() if f.name not in  ['id', 'username']]
+        total = 0
+
+        for f in fields:
+            value = getattr(user_in_fmaths, f.name)
+            total += value
+        return total
+    else:
+        return 0
+    
+def recommendMaths(request):
+    user = get_user(request)
+    user_in_maths = MathsPoints.objects.get(username=user)
+    fields = [f for f in MathsPoints._meta.get_fields() if f.name not in  ['id', 'username']]
+    lowest_value = float('inf')
+    
+    for f in fields:
+        value = getattr(user_in_maths, f.name)
+        if value < lowest_value:
+            lowest_value = value
+            lowest_value_field = f.name
+    return lowest_value_field
+        
+def recommendFurtherMaths(request):
+    user = get_user(request)
+    if user.further_maths == True:
+        user_in_fmaths = FurtherMathsPoints.objects.get(username=user)
+        fields = [f for f in FurtherMathsPoints._meta.get_fields() if f.name not in  ['id', 'username']]
+        lowest_value = float('inf')
+
+        for f in fields:
+            value = getattr(user_in_fmaths, f.name)
+            if value < lowest_value:
+                lowest_value = value
+                lowest_value_field = f.name
+        return lowest_value_field
+    else:
+        return None
+
 def dash(request):
     """Returns the Student Dash"""
     if 'user_id' in request.session:
@@ -38,8 +96,20 @@ def dash(request):
         #Adds a user to either MathsPoints or FurtherMathsPoints
         appendToMaths(request)
         appendToFurtherMaths(request)
+
+        #save the total points for a user in these variables
+        progressMaths = total_points_maths(request)
+        progressFurtherMaths = total_points_fmaths(request)
+
+        #saves the lowest value topics for a user in these variables
+        mathsTopic = recommendMaths(request)
+        furtherMathsTopic = recommendFurtherMaths(request)
         context = {
             'user':user,
+            'progressMaths': progressMaths,
+            'progressFurtherMaths': progressFurtherMaths,
+            'mathsTopic': mathsTopic,
+            'furtherMathsTopic': furtherMathsTopic,
             }
         return render(request, 'students/dash.html', context)
     #If there is no user id in request.session, redirect the user to the sign up page
@@ -51,6 +121,15 @@ def logout(request):
     if 'user_id' in request.session:
         del request.session['user_id']
     return redirect('/home/')
+
+def graph(request):
+    """Returns the graphing calculator"""
+    if 'user_id' in request.session:
+        return render(request, 'students/graph.html')
+    
+    #If there is no user id in request.session, redirect the user to the sign up page
+    else:
+        return redirect('/home/signup/')
 
 def testQform(subject, topic):
     "Returns false for topics and subjects that cannot be used as filters."

@@ -14,7 +14,7 @@ Question Page
 <nav>
   <a href="{% url 'dash' %}">Back To Student Dash</a>
   <a href="{% url 'qform' %}">Want different questions?</a>
-  <a href="#">Graphing Calculator</a>
+  <a href="{% url 'graph' %}">Graphing Calculator</a>
 </nav>
 
 {% if student_questions %}

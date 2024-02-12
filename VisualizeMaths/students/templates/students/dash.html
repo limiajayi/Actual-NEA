@@ -9,7 +9,7 @@ Student Dash
     <!--Navigate to other pages-->
     Hello {{ user.username }}
     <div>
-        <a href="#">Graphing Calculator</a>
+        <a href="{% url 'graph' %}">Graphing Calculator</a>
         <a href="{% url 'logout' %}">Log Out</a>
     </div>
 </nav>
@@ -20,7 +20,7 @@ Student Dash
         <a href="#">
             Maths
         </a>
-        <progress value="50" max="500"></progress>
+        <progress value="{{ progressMaths }}" max="500"></progress>
         {% endif %}
 
         <!--Show further maths link and progress bar if a user does further maths-->
@@ -29,18 +29,18 @@ Student Dash
         <a href="#">
             Further Maths
         </a>
-        <progress value="50" max="450"></progress>
+        <progress value="{{ progressFurtherMaths }}" max="450"></progress>
         {% endif %}
 
         <!--Recommendation system-->
         <div>
         <p>Would you like to try these topics?</p>
         {% if user.maths == True %}
-        <a href="#"> mathstopic </a>
+        <a href="#"> {{ mathsTopic }} </a>
         {% endif %}
 
         {% if user.further_maths == True %}
-        <a href="#"> fmathstopic </a>
+        <a href="#"> {{ furtherMathsTopic }} </a>
         {% endif %}
         </div>
 
