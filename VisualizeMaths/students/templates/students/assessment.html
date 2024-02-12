@@ -1,0 +1,19 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}
+Weekly Assessments
+{% endblock %}
+
+{% block content %}
+<nav>
+    <a href="{% url 'dash' %}">Back To Student Dash</a>
+    <a href="{% url 'graph' %}">Graphing Calculator</a>
+</nav>
+
+{{ mathsChart|safe }}
+
+{% if user.further_maths == True %}
+      {{ fmathsChart|safe }}
+{% endif %}
+
+{% endblock %}

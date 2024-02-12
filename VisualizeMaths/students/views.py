@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from home.models import StudentUser
 from .models import MathsPoints, FurtherMathsPoints, Question
 from .forms import QuestionForm
-from random import shuffle
+import plotly.graph_objects as go
 
 # Create your views here.
 def get_user(request):
@@ -115,7 +115,48 @@ def dash(request):
     #If there is no user id in request.session, redirect the user to the sign up page
     else:
         return redirect('/home/signup/')
+
+def mathsAssessment(request):
+    user = get_user(request)
+    user_in_maths = MathsPoints.objects.get(username=user)
+    topics = ['Quadratics', 'Equations and Inequalities', 'Graphs and Transformations', 'Straight Line Graphs', 
+            'Circles', 'Trigonometry', 'Differentiation', 'Integration', 'Exponentials and Logarithms', '2D Vectors']
+    values = [user_in_maths.quadratics,  user_in_maths.equations_and_inequalities,  user_in_maths.graphs_and_transformations,  user_in_maths.straight_line_graphs,  
+              user_in_maths.circles,  user_in_maths.trigonometry,  user_in_maths.differentiation, user_in_maths.integration,  user_in_maths.exponents,  user_in_maths.two_d_vectors]
+    bar_chart = go.Figure(data=go.Bar(x=topics, y=values))
+    return bar_chart
+
+def furtherMathsAssessment(request):
+    user = get_user(request)
+    if user.further_maths == True:
+        user_in_fmaths = FurtherMathsPoints.objects.get(username=user)
+        topics = ['Differentiation', 'Integration', 'Argand Diagrams', 'Volumes of Revolution', 'Methods In Calculus', 
+                  'Matrices', '3D vectors', 'Polar Coordinates', 'Hyperbolic Functions']
+        values = [user_in_fmaths.differentiation, user_in_fmaths.integration, user_in_fmaths.argand_diagrams, user_in_fmaths.volumes_of_revolution,
+                  user_in_fmaths.methods_in_calculus, user_in_fmaths.matrices, user_in_fmaths.three_d_vectors, user_in_fmaths.polar_coordinates, user_in_fmaths.hyperbolic_functions]
+        bar_chart = go.Figure(data=go.Bar(x=topics, y=values))
+        return bar_chart
+    else:
+        return None
     
+def assessment(request):
+    user = get_user(request)
+    if furtherMathsAssessment(request) == None:
+        mathsChart = mathsAssessment(request).to_html(full_html=False)
+        context = {
+        'mathsChart': mathsChart,
+        }
+        return render(request, 'students/assessment.html', context)
+    else:
+        mathsChart = mathsAssessment(request).to_html(full_html=False)
+        fmathsChart = furtherMathsAssessment(request).to_html(full_html=False)
+        context = {
+        'user': user,
+        'mathsChart': mathsChart,
+        'fmathsChart': fmathsChart,
+        }
+        return render(request, 'students/assessment.html', context)
+ 
 def logout(request):
     """URL for the user to logout"""
     if 'user_id' in request.session:
@@ -222,6 +263,8 @@ def addToPointsMaths(request, topic, difficulty):
         user_in_points.differentiation += determine_points(difficulty)
     elif topic == "Integration":
         user_in_points.integration += determine_points(difficulty)
+    elif topic == "Exponentials and Logarithms":
+        user_in_points.exponents += determine_points(difficulty)
     elif topic == "2D Vectors":
         user_in_points.two_d_vectors += determine_points(difficulty)
     user_in_points.save()

@@ -7,5 +7,6 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'), #the url pointing to views.logout which lets users logout
     path('questionMaths/', views.questionMaths), #the url pointing to views.questionMaths which returns the question page if a user is practising maths
     path('questionFurtherMaths/', views.questionFurtherMaths), #the url pointing to views.questionFurtherMaths which returns the question page if a user is practising further maths
-    path('graph/', views.graph, name='graph') #url pointing views.graph which returns the graphing calculator
+    path('graph/', views.graph, name='graph'), #url pointing views.graph which returns the graphing calculator
+    path('assessments/', views.assessment, name='assessment'), #url pointing to views.assessment which returns the weekly assessments page
 ]

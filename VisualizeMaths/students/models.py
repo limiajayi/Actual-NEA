@@ -13,6 +13,7 @@ class MathsPoints(models.Model):
     trigonometry = models.IntegerField(default=0, blank=True)
     differentiation = models.IntegerField(default=0, blank=True)
     integration = models.IntegerField(default=0, blank=True)
+    exponents = models.IntegerField(default=0, blank=True)
     two_d_vectors = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
