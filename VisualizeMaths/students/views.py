@@ -271,6 +271,8 @@ def addToPointsMaths(request, topic, difficulty):
         user_in_points.exponents += determine_points(difficulty)
     elif topic == "2D Vectors":
         user_in_points.two_d_vectors += determine_points(difficulty)
+    elif topic == "3D Vectors":
+         user_in_points.three_d_vectors += determine_points(difficulty)
     user_in_points.save()
 
 def addToPointsFurtherMaths(request, topic, difficulty):

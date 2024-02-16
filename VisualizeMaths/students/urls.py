@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+import topics.views
 
 urlpatterns = [
     path('dash/', views.dash, name='dash'), #the url pointing to views.dash which returns the student dash
@@ -9,4 +10,5 @@ urlpatterns = [
     path('questionFurtherMaths/', views.questionFurtherMaths), #the url pointing to views.questionFurtherMaths which returns the question page if a user is practising further maths
     path('graph/', views.graph, name='graph'), #url pointing views.graph which returns the graphing calculator
     path('assessments/', views.assessment, name='assessment'), #url pointing to views.assessment which returns the weekly assessments page
+    path('subject/', topics.views.subject, name='subject'), #url pointing to topic.views.subject which returns a page containing links to the topic pages
 ]

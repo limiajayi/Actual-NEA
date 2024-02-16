@@ -15,6 +15,7 @@ class MathsPoints(models.Model):
     integration = models.IntegerField(default=0, blank=True)
     exponents = models.IntegerField(default=0, blank=True)
     two_d_vectors = models.IntegerField(default=0, blank=True)
+    three_d_vectors = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
         return str(self.username)
