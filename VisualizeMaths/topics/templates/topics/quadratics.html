@@ -1,0 +1,41 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}
+Quadratics
+{% endblock %}
+
+{% block scripts %}
+<!--Code below uses latex to render the maths on the page-->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+{% endblock scripts %}
+
+{% block content %}
+<!--This page contains useful information on how to solve quadratics questions-->
+<a href="{% url 'subject' %}">Back To Topics links</a>
+<div>
+    <h3>Solving Quadratics</h3>
+    <p>
+        For an equation  \( y = f(x) \) where
+        $$ f(x) = ax^2 + bx + c $$
+        The roots of the equation, where  \( y = 0 \) can be found by using the quadratic formula
+        $$  \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
+    </p>
+    <h3>Number of Roots</h3>
+    <p>
+        <ul>
+            <li> If \( b^2 - 4ac  \gt 0 \) there are two real roots and the curve crosses the x-axis twice</li>
+            <li> If \( b^2 - 4ac  = 0 \) there is only one real root and the curve touches the x-axis once</li>
+            <li> If \( b^2 - 4ac  \lt 0 \) there are no real roots and the curve does not intersect the x-axis </li>
+        </ul>
+    </p>
+    <h3>Sketching Quadratics</h3>
+    <p>
+        For an equation  \( y = f(x) \) where
+        $$ f(x) = ax^2 + bx + c $$
+        If the coefficent of \( x^2 \) is positive, the graph is convex and forms a U shape.
+        If the coefficent of \( x^2 \) is negative, the graph is concave and forms an n shape.
+    </p>
+</div>
+<a href="{% url 'quadraticQs' %}">Practise some questions now !!</a>
+
+{% endblock %}

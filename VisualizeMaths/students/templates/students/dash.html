@@ -17,7 +17,7 @@ Student Dash
     <div>
         <!--Show maths link and progress bar if a user does maths-->
         {% if user.maths == True %}
-        <a href="#">
+        <a href="{% url 'subject' %}">
             Maths
         </a>
         <progress value="{{ progressMaths }}" max="500"></progress>
@@ -26,7 +26,7 @@ Student Dash
         <!--Show further maths link and progress bar if a user does further maths-->
         {% if user.further_maths == True %}
         <br>
-        <a href="#">
+        <a href="{% url 'subject' %}">
             Further Maths
         </a>
         <progress value="{{ progressFurtherMaths }}" max="450"></progress>

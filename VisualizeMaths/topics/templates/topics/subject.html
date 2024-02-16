@@ -1,0 +1,63 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}
+Take Your Pick!
+{% endblock %}
+
+{% block content %}
+<!--Links back to Student Dash-->
+<a href="{% url 'dash' %}">Back To Student Dash</a>
+
+<div>
+    <h3>Maths</h3>
+    <!--Maths topic links-->
+    <a href="{% url 'quadratics' %}">Quadratics</a>
+
+    <a href="#">Equations and Inequalities</a>
+
+    <a href="#">Graphs and Transformations</a>
+
+    <a href="#">Straight Line Graphs</a>
+
+    <a href="#">Circles</a>
+
+    <a href="#">Trigonometry</a>
+
+    <a href="#">Differentiation</a>
+
+    <a href="#">Integration</a>
+
+    <a href="#">Logarithms and exponents</a>
+
+    <a href="#">2D Vectors</a>
+
+    <a href="#">3D Vectors</a>
+</div>
+
+{% if user.further_maths == True %}
+<div>
+    <h3>Further Maths</h3>
+    <!--Further Maths topic links-->
+
+    <a href="#">Differentiation</a>
+
+    <a href="#">Integration</a>
+
+    <a href="#">Argand Diagrams</a>
+
+    <a href="#">Volumes of Revolution</a>
+
+    <a href="#">Methods In Calculus</a>
+
+    <a href="#">Matrices</a>
+
+    <a href="#">Polar Coordinates</a>
+
+    <a href="#">Hyperbolic Functions<a>
+
+    <a href="#">3D Vectors</a>
+</div>
+{% endif %}
+
+
+{% endblock %}

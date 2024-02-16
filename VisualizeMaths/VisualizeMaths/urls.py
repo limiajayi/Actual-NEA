@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')), #URLs for home app
     path('students/', include('students.urls')), #URLs for students app
+    path('topics/', include('topics.urls')), #URLs for the topic app
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #URLs for images 
