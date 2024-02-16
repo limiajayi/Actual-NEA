@@ -61,6 +61,7 @@ def total_points_fmaths(request):
         return 0
     
 def recommendMaths(request):
+    """Works out the topic with the lowest value in MathsPoints for a user and returns the name of the topic"""
     user = get_user(request)
     user_in_maths = MathsPoints.objects.get(username=user)
     fields = [f for f in MathsPoints._meta.get_fields() if f.name not in  ['id', 'username']]
@@ -74,7 +75,10 @@ def recommendMaths(request):
     return lowest_value_field
         
 def recommendFurtherMaths(request):
+    """Works out the topic with the lowest value in FurtherMathsPoints for a user and returns the name of the topic"""
     user = get_user(request)
+
+    #Initially checks if the user is doing further maths
     if user.further_maths == True:
         user_in_fmaths = FurtherMathsPoints.objects.get(username=user)
         fields = [f for f in FurtherMathsPoints._meta.get_fields() if f.name not in  ['id', 'username']]

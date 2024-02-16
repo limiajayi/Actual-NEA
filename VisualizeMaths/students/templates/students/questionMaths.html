@@ -22,7 +22,20 @@ Question Page
 <form action="" method="post">
   {% csrf_token %}
   {% for q in student_questions %}
-    <img src="{{ q.image.url }}" alt="">
+
+    <!-- The image and graphing calculator are in the same div -->
+    <div>
+      {% if q.is_graph == True %}
+      <img src="{{ q.image.url }}" alt="">
+      <br>
+      <script src="https://www.desmos.com/api/v1.8/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+      <div id="calculator" style="width: 50px; height: 50px;"></div>
+      <script>
+          var elt = document.getElementById('calculator');
+          var calculator = Desmos.GraphingCalculator(elt);
+      </script>
+      {% endif %}
+    </div>
     <br>
     <label for="">{{ q.question }}</label>
     <br>
