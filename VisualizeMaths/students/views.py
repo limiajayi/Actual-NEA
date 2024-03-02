@@ -3,6 +3,7 @@ from home.models import StudentUser
 from .models import MathsPoints, FurtherMathsPoints, Question
 from .forms import QuestionForm
 import plotly.graph_objects as go
+import datetime
 
 # Create your views here.
 def get_user(request):
@@ -93,6 +94,14 @@ def recommendFurtherMaths(request):
     else:
         return None
 
+def isItMonday():
+    """Returns True if it is Monday."""
+    today = datetime.datetime.today()
+    if today.weekday() == 0:
+        return True
+    else:
+        return False
+
 def dash(request):
     """Returns the Student Dash"""
     if 'user_id' in request.session:
@@ -108,12 +117,16 @@ def dash(request):
         #saves the lowest value topics for a user in these variables
         mathsTopic = recommendMaths(request)
         furtherMathsTopic = recommendFurtherMaths(request)
+
+        #variable that determines when weekly assessments link should be shown
+        week = isItMonday()
         context = {
             'user':user,
             'progressMaths': progressMaths,
             'progressFurtherMaths': progressFurtherMaths,
             'mathsTopic': mathsTopic,
             'furtherMathsTopic': furtherMathsTopic,
+            'week': week,
             }
         return render(request, 'students/dash.html', context)
     #If there is no user id in request.session, redirect the user to the sign up page
@@ -341,6 +354,7 @@ def questionMaths(request):
                             'bad': bad_message,
                             }
                             return render(request, 'students/questionMaths.html', context)
+                    #If the answer entered by the user is blank
                     else:
                         message = testUserInput(request.POST.get(q.question))
                         context = {
@@ -387,6 +401,7 @@ def questionFurtherMaths(request):
                         'bad': bad_message,
                         }
                         return render(request, 'students/questionFurtherMaths.html', context)
+                #If the answer entered by the user is blank
                 else:
                     message = testUserInput(request.POST.get(q.question))
                     context = {

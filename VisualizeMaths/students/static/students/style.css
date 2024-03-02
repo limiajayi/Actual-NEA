@@ -1,0 +1,99 @@
+body {
+    background-color: rgb(189, 189, 255);
+    display: flex;
+    flex-direction: column;
+}
+
+#content {
+    background-color: rgb(255, 253, 242);
+    width: 75%;
+    height: 90%;
+    margin: auto;
+    justify-content: flex-end;
+    padding: 2rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid black;
+    width: 98%;
+    height: 5%;
+    background-color: rgb(189, 189, 255);
+    padding: 1.5rem;
+}
+
+#links {
+    margin-left: 2.5%;
+}
+
+#links a {
+    text-decoration: none;
+    background-color: rgb(255, 253, 242);
+    color: black;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
+
+#home-links a {
+    text-decoration: none;
+    background-color: rgb(255, 253, 242);
+    color: black;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
+
+div #subject {
+    background-color: rgb(168, 223, 156);
+    margin: auto;
+    margin-bottom: 1rem;
+    width: 85%;
+    padding: 2%;
+    border-radius: 1rem;
+    border: 1px solid black;
+}
+
+div #subject a {
+    display: block;
+    text-decoration: none;
+    color: black;
+    font-size: 14pt;
+}
+
+div progress {
+    margin: 0.5rem;
+    width: 85%;
+    border: 1px solid black;
+    border-radius: 1rem;
+}
+
+div #bottom {
+    display: flex;
+    justify-content: space-around;
+ }
+
+div #recommend {
+    background-color: rgb(250, 232, 215);
+    border: 1px solid black;
+    border-radius: 1rem;
+    margin: 2rem;
+    padding: 1rem;
+ }
+
+div #assess {
+    background-color: rgb(219, 252, 167);
+    border: 1px solid black;
+    border-radius: 1rem;
+    margin: 2rem;
+    padding: 1rem;
+ }
+
+div #question {
+    background-color: rgb(242, 252, 106);
+    border: 1px solid black;
+    border-radius: 1rem;
+    margin: 2rem;
+    padding: 1rem;
+ }

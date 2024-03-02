@@ -1,5 +1,15 @@
-{% extends 'home/nav.html' %}
+{% extends 'home/base.html' %}
+{% load static %}
 
 {% block title %}
 Home Page
+
+{% endblock %}
+{% block content %}
+<nav>
+    <a href="{% url 'signup' %}">Sign Up</a>
+
+    <a href="{% url 'login' %}">Login</a>
+</nav>
+<link rel="stylesheet" href="{% static 'students/more.css' %}">
 {% endblock %}

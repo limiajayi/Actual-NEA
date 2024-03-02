@@ -7,53 +7,66 @@ Student Dash
 {% block content %}
 <nav>
     <!--Navigate to other pages-->
-    Hello {{ user.username }}
-    <div>
+    <div id="user">
+        Hello {{ user.username }}
+    </div>
+    <div id="links">
         <a href="{% url 'graph' %}">Graphing Calculator</a>
         <a href="{% url 'logout' %}">Log Out</a>
     </div>
 </nav>
+
 <main>
-    <div>
+    <div id="content">
         <!--Show maths link and progress bar if a user does maths-->
-        {% if user.maths == True %}
-        <a href="{% url 'subject' %}">
-            Maths
-        </a>
-        <progress value="{{ progressMaths }}" max="500"></progress>
-        {% endif %}
+        <div id="subject">
+            <a href="{% url 'subject' %}">
+                Maths
+            </a>
+            <progress value="{{ progressMaths }}" id="maths" max="500"></progress>
+        </div>
 
         <!--Show further maths link and progress bar if a user does further maths-->
         {% if user.further_maths == True %}
-        <br>
-        <a href="{% url 'subject' %}">
-            Further Maths
-        </a>
-        <progress value="{{ progressFurtherMaths }}" max="450"></progress>
-        {% endif %}
-
-        <!--Recommendation system-->
-        <div>
-        <p>Would you like to try these topics?</p>
-        {% if user.maths == True %}
-        <a href="#"> {{ mathsTopic }} </a>
-        {% endif %}
-
-        {% if user.further_maths == True %}
-        <a href="#"> {{ furtherMathsTopic }} </a>
-        {% endif %}
+        <div id="subject">
+            <a href="{% url 'subject' %}">
+                Further Maths
+            </a>
+            <progress value="{{ progressFurtherMaths }}" id="fmaths" max="450"></progress>
         </div>
+        {% endif %}
 
-        <!--Weekly assessments-->
-        <div>
-            <a href="{% url 'assessment' %}">Weekly Assessments</a>
-        </div>
-
-        <!--Question Page link-->
-        <div>     
-            <a href="{% url 'qform' %}">What topic would you like to practise today?</a>
+        <div id="bottom">
+            <div id="recommend">
+                 <!--Recommendation system-->
+                <p>Would you like to try these topics?</p>
+                {% if user.maths == True %}
+                <a href="#"> {{ mathsTopic }} </a>
+                {% endif %}
+        
+                {% if user.further_maths == True %}
+                <a href="#"> {{ furtherMathsTopic }} </a>
+                {% endif %}
+            </div>
+        
+                <!--Weekly assessments-->
+            {% if week == True %}
+            <div id="assess">
+                <a href="{% url 'assessment' %}">Weekly Assessments</a>
+            </div>
+            {% endif %}
+            {% if week == False %}
+            <div id="assess">
+                <p>Check back On Monday For Weekly Assessments</p>
+            </div>
+            {% endif %}
+        
+                <!--Question Page link-->
+            <div id="question">     
+                <a href="{% url 'qform' %}">What topic would you like to practise today?</a>
+            </div>
         </div>
     </div>
 </main>
-<link rel="stylesheet" href="{% static "students/students.css" %}">
+<link rel="stylesheet" href="{% static 'students/style.css' %}">
 {% endblock %}

@@ -1,0 +1,8 @@
+a {
+    text-decoration: none;
+    background-color: rgb(255, 253, 242);
+    color: black;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
