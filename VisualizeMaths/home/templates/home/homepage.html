@@ -6,10 +6,10 @@ Home Page
 
 {% endblock %}
 {% block content %}
-<nav>
-    <a href="{% url 'signup' %}">Sign Up</a>
+<div>
+    <a href="{% url 'signup' %}" class="home-links">Sign Up</a>
 
-    <a href="{% url 'login' %}">Login</a>
-</nav>
-<link rel="stylesheet" href="{% static 'students/more.css' %}">
+    <a href="{% url 'login' %}" class="home-links">Login</a>
+</div>
+<link rel="stylesheet" href="{% static 'students/homeapp.css' %}">
 {% endblock %}

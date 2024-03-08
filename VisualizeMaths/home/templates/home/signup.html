@@ -1,12 +1,17 @@
 {% extends 'home/base.html' %}
-
+{% load static %}
 {% block title %}
 Sign Up
 {% endblock %}
 
 {% block content %}
-<a href="{% url 'home' %}">Back to Home</a>
+<nav>
+    <p>Sign Up Now!</p>
 
+    <a href="{% url 'home' %}" id="signup-link">Back to Home</a>
+</nav>
+
+<div id="content">
 <form action="" method="post">
 {% csrf_token %}
 {{ form.as_p }}
@@ -40,4 +45,6 @@ Sign Up
 <button type="submit">Submit</button>
 </form>
 
+</div>
+<link rel="stylesheet" href="{% static 'students/homeapp.css' %}">
 {% endblock %}

@@ -17,7 +17,7 @@ nav {
     display: flex;
     justify-content: space-around;
     border-bottom: 1px solid black;
-    width: 98%;
+    width: 97%;
     height: 5%;
     background-color: rgb(189, 189, 255);
     padding: 1.5rem;
@@ -55,6 +55,12 @@ div #subject {
     border: 1px solid black;
 }
 
+div #subject:hover {
+    transition-duration: 450ms;
+    transform: translate(4px, 4px);
+    filter: drop-shadow(-7px 7px 0px rgb(0, 0, 0));
+}
+
 div #subject a {
     display: block;
     text-decoration: none;
@@ -69,9 +75,18 @@ div progress {
     border-radius: 1rem;
 }
 
+::-webkit-progress-value {
+    background-color: rgb(95, 95, 95);
+  }
+  
+  ::-moz-progress-bar {
+    background-color: rgb(95, 95, 95);
+  }
+  
 div #bottom {
     display: flex;
-    justify-content: space-around;
+    font-size: large;
+    justify-content: space-evenly;
  }
 
 div #recommend {
@@ -80,6 +95,12 @@ div #recommend {
     border-radius: 1rem;
     margin: 2rem;
     padding: 1rem;
+ }
+
+ div #recommend a {
+    display: block;
+    color: black;
+    text-decoration: underline;
  }
 
 div #assess {
@@ -96,4 +117,9 @@ div #question {
     border-radius: 1rem;
     margin: 2rem;
     padding: 1rem;
+ }
+
+ div #question a {
+    color: black;
+    text-decoration: underline;
  }
