@@ -140,7 +140,7 @@ def mathsAssessment(request):
             'Circles', 'Trigonometry', 'Differentiation', 'Integration', 'Exponentials and Logarithms', '2D Vectors']
     values = [user_in_maths.quadratics,  user_in_maths.equations_and_inequalities,  user_in_maths.graphs_and_transformations,  user_in_maths.straight_line_graphs,  
               user_in_maths.circles,  user_in_maths.trigonometry,  user_in_maths.differentiation, user_in_maths.integration,  user_in_maths.exponents,  user_in_maths.two_d_vectors]
-    bar_chart = go.Figure(data=go.Bar(x=topics, y=values))
+    bar_chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', marker_line_color='rgb(31, 31, 31)', marker_line_width=2, marker_pattern_shape='/'))
     return bar_chart
 
 def furtherMathsAssessment(request):

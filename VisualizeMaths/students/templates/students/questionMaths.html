@@ -1,4 +1,5 @@
 {% extends 'home/base.html' %}
+{% load static %}
 {% block title %}
 Question Page
 {% endblock %}
@@ -12,11 +13,12 @@ Question Page
 {% block content %}
 <!--Links to return to previous pages or graphing calculator.-->
 <nav>
-  <a href="{% url 'dash' %}">Back To Student Dash</a>
-  <a href="{% url 'qform' %}">Want different questions?</a>
-  <a href="{% url 'graph' %}">Graphing Calculator</a>
+  <a href="{% url 'dash' %}" class="question-links">Back To Student Dash</a>
+  <a href="{% url 'qform' %}" class="question-links">Want different questions?</a>
+  <a href="{% url 'graph' %}" class="question-links">Graphing Calculator</a>
 </nav>
-
+<div id="content">
+  <div id="question-page">
 {% if student_questions %}
 <!--Shows the questions, image and input box for users to enter their answers-->
 <form action="" method="post">
@@ -27,13 +29,6 @@ Question Page
     <div>
       {% if q.is_graph == True %}
       <img src="{{ q.image.url }}" alt="">
-      <br>
-      <script src="https://www.desmos.com/api/v1.8/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
-      <div id="calculator" style="width: 50px; height: 50px;"></div>
-      <script>
-          var elt = document.getElementById('calculator');
-          var calculator = Desmos.GraphingCalculator(elt);
-      </script>
       {% endif %}
     </div>
     <br>
@@ -69,13 +64,16 @@ Question Page
         <img src="{{ q.worked_solutions.url }}" alt="">
         {% endif %}
       </div>
-    </div>
 
+    </div>
   {% endfor %}
   <button type="submit">Submit</button>
-</form>
-
+  </form>
+  </div>
+</div>
 {% endif %}
+<link rel="stylesheet" href="{% static 'students/style.css' %}">
+
 <!--Script for the math-field element-->
 <script defer src="//unpkg.com/mathlive"></script>
 {% endblock %}

@@ -5,7 +5,10 @@ Question Form
 {% endblock %}
 
 {% block content %}
-
+<nav>
+  <a href="{% url 'dash' %}">Back To Student Dash</a>
+</nav>
+<div id="content">
 {% if form %}
 <form method="POST">
   <legend>Select Your Questions</legend>
@@ -22,5 +25,6 @@ Question Form
 <a href="{% url 'qform' %}">Please filter for different questions.</a>
 
 {% endif %}
-
+</div>
+<link rel="stylesheet" href="{% static 'students/homeapp.css' %}">
 {% endblock %}

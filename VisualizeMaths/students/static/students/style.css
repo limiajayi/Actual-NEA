@@ -36,6 +36,25 @@ nav {
     border-radius: 0.5rem;
 }
 
+.question-links {
+    text-decoration: none;
+    background-color: rgb(255, 253, 242);
+    color: black;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
+
+#graph-links {
+    text-decoration: none;
+    background-color: rgb(255, 253, 242);
+    color: black;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    margin: auto;
+}
+
 #home-links a {
     text-decoration: none;
     background-color: rgb(255, 253, 242);
@@ -123,3 +142,31 @@ div #question {
     color: black;
     text-decoration: underline;
  }
+
+ button {
+    border-radius: 1rem;
+    font-size: large;
+    padding: 0.5rem;
+    border: 1.2px solid black;
+}
+
+div #question-page {
+    background-color: rgb(168, 223, 156);
+    border: 1px solid black;
+    border-radius: 1rem;
+    margin: 2rem;
+    padding: 1rem;
+}
+
+img {
+    border: 1px solid black;
+    border-radius: 1rem;
+    margin: 2rem;
+}
+
+math-field {
+    width: 25%;
+    border-radius: 1rem;
+    margin: 1rem;
+    font-size: 15pt;
+}

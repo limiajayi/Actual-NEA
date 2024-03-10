@@ -5,12 +5,15 @@ Graphing Calculator
 {% endblock %}
 
 {% block content %}
+<nav>
+    <a href="{% url 'dash' %}" id="graph-links">Back To Student Dash</a>
+</nav>
 
 <script src="https://www.desmos.com/api/v1.8/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
-<div id="calculator" style="width: 95vw; height: 95vh;"></div>
+<div id="calculator" style="width: 90vw; height: 85vh; margin: auto;"></div>
 <script>
     var elt = document.getElementById('calculator');
     var calculator = Desmos.GraphingCalculator(elt);
 </script>
-
+<link rel="stylesheet" href="{% static 'students/style.css' %}">
 {% endblock %}
