@@ -36,16 +36,7 @@ nav {
     border-radius: 0.5rem;
 }
 
-.question-links {
-    text-decoration: none;
-    background-color: rgb(255, 253, 242);
-    color: black;
-    padding: 0.5rem;
-    border: 1px solid black;
-    border-radius: 0.5rem;
-}
-
-#graph-links {
+nav a {
     text-decoration: none;
     background-color: rgb(255, 253, 242);
     color: black;
@@ -53,15 +44,6 @@ nav {
     border: 1px solid black;
     border-radius: 0.5rem;
     margin: auto;
-}
-
-#home-links a {
-    text-decoration: none;
-    background-color: rgb(255, 253, 242);
-    color: black;
-    padding: 0.5rem;
-    border: 1px solid black;
-    border-radius: 0.5rem;
 }
 
 div #subject {
@@ -130,6 +112,12 @@ div #assess {
     padding: 1rem;
  }
 
+ div #assess a {
+    display: block;
+    color: black;
+    text-decoration: underline;
+ }
+
 div #question {
     background-color: rgb(242, 252, 106);
     border: 1px solid black;
@@ -169,4 +157,9 @@ math-field {
     border-radius: 1rem;
     margin: 1rem;
     font-size: 15pt;
+}
+
+#mathsChart {
+    width: 4rem;
+    height: 4rem;
 }

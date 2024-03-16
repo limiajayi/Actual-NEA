@@ -6,20 +6,24 @@ Take Your Pick!
 
 {% block content %}
 <!--Links back to Student Dash-->
-<a href="{% url 'dash' %}">Back To Student Dash</a>
+<nav>
+    <a href="{% url 'dash' %}">Back To Student Dash</a>
+</nav>
 
+<div id="content">
+<main>
 <div>
     <h3>Maths</h3>
     <!--Maths topic links-->
     <a href="{% url 'quadratics' %}">Quadratics</a>
 
-    <a href="#">Equations and Inequalities</a>
+    <a href="{% url 'inequalites' %}">Equations and Inequalities</a>
 
-    <a href="#">Graphs and Transformations</a>
+    <a href="{% url 'transformations' %}">Graphs and Transformations</a>
 
-    <a href="#">Straight Line Graphs</a>
+    <a href="{% url 'straightLineGraphs' %}">Straight Line Graphs</a>
 
-    <a href="#">Circles</a>
+    <a href="{% url 'circles' %}">Circles</a>
 
     <a href="#">Trigonometry</a>
 
@@ -58,6 +62,7 @@ Take Your Pick!
     <a href="#">3D Vectors</a>
 </div>
 {% endif %}
-
-
+</main>
+</div>
+<link rel="stylesheet" href="{% static 'students/topics.css' %}">
 {% endblock %}

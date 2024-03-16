@@ -1,7 +1,7 @@
 {% extends 'home/base.html' %}
 {% load static %}
 {% block title %}
-Question Page
+Question Page Maths
 {% endblock %}
 {% block scripts %}
 
@@ -13,9 +13,9 @@ Question Page
 {% block content %}
 <!--Links to return to previous pages or graphing calculator.-->
 <nav>
-  <a href="{% url 'dash' %}" class="question-links">Back To Student Dash</a>
-  <a href="{% url 'qform' %}" class="question-links">Want different questions?</a>
-  <a href="{% url 'graph' %}" class="question-links">Graphing Calculator</a>
+  <a href="{% url 'dash' %}">Back To Student Dash</a>
+  <a href="{% url 'qform' %}">Want different questions?</a>
+  <a href="{% url 'graph' %}">Graphing Calculator</a>
 </nav>
 <div id="content">
   <div id="question-page">

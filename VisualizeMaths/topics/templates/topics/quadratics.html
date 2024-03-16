@@ -11,7 +11,12 @@ Quadratics
 
 {% block content %}
 <!--This page contains useful information on how to solve quadratics questions-->
-<a href="{% url 'subject' %}">Back To Topics links</a>
+<nav>
+    <a href="{% url 'subject' %}">Back To Topics links</a>
+    <a href="{% url 'dash' %}">Back To Student Dash</a>
+</nav>
+<div id="content">
+    <main>
 <div>
     <h3>Solving Quadratics</h3>
     <p>
@@ -37,5 +42,8 @@ Quadratics
     </p>
 </div>
 <a href="{% url 'quadraticQs' %}">Practise some questions now !!</a>
+</main>
+</div>
 
+<link rel="stylesheet" href="{% static 'students/topics.css' %}">
 {% endblock %}

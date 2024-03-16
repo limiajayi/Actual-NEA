@@ -10,10 +10,14 @@ Weekly Assessments
     <a href="{% url 'graph' %}">Graphing Calculator</a>
 </nav>
 
-{{ mathsChart|safe }}
+<div id="mathsChart">
+    {{ mathsChart|safe }}
+
+</div>
 
 {% if user.further_maths == True %}
       {{ fmathsChart|safe }}
 {% endif %}
+
 <link rel="stylesheet" href="{% static 'students/style.css' %}">
 {% endblock %}

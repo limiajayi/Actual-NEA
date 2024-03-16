@@ -1,0 +1,27 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}
+Quadratics
+{% endblock %}
+
+{% block scripts %}
+<!--Code below uses latex to render the maths on the page-->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+{% endblock scripts %}
+
+{% block content %}
+<!--This page contains useful information on how to solve quadratics questions-->
+<nav>
+    <a href="{% url 'subject' %}">Back To Topics links</a>
+    <a href="{% url 'dash' %}">Back To Student Dash</a>
+</nav>
+<div id="content">
+    <main>
+        <div>
+            <p>womp womp</p>
+        </div>
+    </main>
+</div>
+
+<link rel="stylesheet" href="{% static 'students/topics.css' %}">
+{% endblock %}

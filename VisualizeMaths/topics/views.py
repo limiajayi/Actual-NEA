@@ -19,3 +19,19 @@ def quadratics(request):
 def quadraticsQuestions(request):
     """Returns the existing question page for maths with the appropriate parameters"""
     return redirect('/students/questionMaths/?subject=Maths&topics=Quadratics&difficulty=Easy&number=5')
+
+def inequalities(request):
+    """Returns the equations and inequalities topic page"""
+    return render(request, 'topics/inequalities.html')
+
+def graphsTransformations(request):
+    """Returns the graphs and transformations topic page"""
+    return render(request, 'topics/transformations.html')
+
+def straightLineGraphs(request):
+    """Returns the straight line graphs topic page"""
+    return render(request, 'topics/straightLineGraphs.html')
+
+def circles(request):
+    """Returns the circles topic page"""
+    return render(request, 'topics/circles.html')

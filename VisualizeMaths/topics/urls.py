@@ -7,4 +7,8 @@ urlpatterns = [
     path('', views.subject, name='subject'), #URL that points to views.subject which returns the subject page
     path('quadratics/', views.quadratics, name='quadratics'), #URL pointing to views.quadratics which returns info on quadratics topic
     path('quadraticQs/', views.quadraticsQuestions, name='quadraticQs'), # URL pointing to the question page on quadratics
+    path('inequalities/', views.inequalities, name='inequalites'),
+    path('transformations/', views.graphsTransformations, name='transformations'),
+    path('straightLineGraphs/', views.straightLineGraphs, name='straightLineGraphs'),
+    path('cirlces/', views.circles, name='circles'),
 ]

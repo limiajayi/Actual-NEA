@@ -100,7 +100,7 @@ def isItMonday():
     if today.weekday() == 0:
         return True
     else:
-        return False
+        return True
 
 def dash(request):
     """Returns the Student Dash"""
@@ -140,7 +140,10 @@ def mathsAssessment(request):
             'Circles', 'Trigonometry', 'Differentiation', 'Integration', 'Exponentials and Logarithms', '2D Vectors']
     values = [user_in_maths.quadratics,  user_in_maths.equations_and_inequalities,  user_in_maths.graphs_and_transformations,  user_in_maths.straight_line_graphs,  
               user_in_maths.circles,  user_in_maths.trigonometry,  user_in_maths.differentiation, user_in_maths.integration,  user_in_maths.exponents,  user_in_maths.two_d_vectors]
-    bar_chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', marker_line_color='rgb(31, 31, 31)', marker_line_width=2, marker_pattern_shape='/'))
+    chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', 
+                                      marker_line_color='rgb(31, 31, 31)', marker_line_width=2, 
+                                      marker_pattern_shape='/'))
+    bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)")
     return bar_chart
 
 def furtherMathsAssessment(request):
@@ -151,7 +154,10 @@ def furtherMathsAssessment(request):
                   'Matrices', '3D vectors', 'Polar Coordinates', 'Hyperbolic Functions']
         values = [user_in_fmaths.differentiation, user_in_fmaths.integration, user_in_fmaths.argand_diagrams, user_in_fmaths.volumes_of_revolution,
                   user_in_fmaths.methods_in_calculus, user_in_fmaths.matrices, user_in_fmaths.three_d_vectors, user_in_fmaths.polar_coordinates, user_in_fmaths.hyperbolic_functions]
-        bar_chart = go.Figure(data=go.Bar(x=topics, y=values))
+        chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', 
+                                      marker_line_color='rgb(31, 31, 31)', marker_line_width=2, 
+                                      marker_pattern_shape='/'))
+        bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)")
         return bar_chart
     else:
         return None
