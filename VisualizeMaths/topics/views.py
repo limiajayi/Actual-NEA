@@ -35,3 +35,52 @@ def straightLineGraphs(request):
 def circles(request):
     """Returns the circles topic page"""
     return render(request, 'topics/circles.html')
+
+def trigonometry(request):
+    """Returns the trigonometry topic page"""
+    return render(request, 'topics/trigonometry.html')
+
+def differentiation(request):
+    """Returns the differentiation topic page"""
+    return render(request, 'topics/differentiation.html')
+
+def integration(request):
+    """Returns the integration topic page"""
+    return render(request, 'topics/integration.html')
+
+def exponents(request):
+    """Returns the logarithms and exponentials topic page"""
+    return render(request, 'topics/exponents.html')
+
+def twoDVectors(request):
+    """Returns the trigonometry topic page"""
+    return render(request, 'topics/2DVectors.html')
+
+def threeDVectors(request):
+    """Returns the trigonometry topic page"""
+    return render(request, 'topics/3DVectors.html')
+
+def argandDiagrams(request):
+    """Returns the Argand Diagrams topic page"""
+    return render(request, 'topics/argandDiagrams.html')
+
+def volumesOfRevolution(request):
+    """Returns the Volumes of Revolution topic page"""
+    return render(request, 'topics/volumesOfRevolution.html')
+
+def methodsInCalculus(request):
+    """Returns the Volumes of Revolution topic page"""
+    return render(request, 'topics/methodsInCalculus.html')
+
+def matrices(request):
+    """Returns the Volumes of Revolution topic page"""
+    return render(request, 'topics/matrices.html')
+
+def polarCoordinates(request):
+    """Returns the Polar Coordinates topic page"""
+    return render(request, 'topics/polarCoordinates.html')
+
+def hyperbolic(request):
+    """Returns the Hyperbolic Functions topic page"""
+    return render(request, 'topics/hyperbolic.html')
+
