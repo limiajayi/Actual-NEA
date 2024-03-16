@@ -180,6 +180,8 @@ def logout(request):
         del request.session['user_id']
     return redirect('/home/')
 
+#this is where the relevant functions in future sections will be added
+
 def graph(request):
     """Returns the graphing calculator"""
     if 'user_id' in request.session:
