@@ -42,7 +42,11 @@ def trigonometry(request):
 
 def differentiation(request):
     """Returns the differentiation topic page"""
-    return render(request, 'topics/differentiation.html')
+    user = get_user(request)
+    context = {
+        'user': user,
+    }
+    return render(request, 'topics/differentiation.html', context)
 
 def integration(request):
     """Returns the integration topic page"""
@@ -83,4 +87,3 @@ def polarCoordinates(request):
 def hyperbolic(request):
     """Returns the Hyperbolic Functions topic page"""
     return render(request, 'topics/hyperbolic.html')
-

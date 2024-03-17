@@ -10,7 +10,7 @@ Differentiation
 {% endblock scripts %}
 
 {% block content %}
-<!--This page contains useful information on how to solve quadratics questions-->
+<!--This page contains useful information on how to solve differentiation questions-->
 <nav>
     <a href="{% url 'subject' %}">Back To Topics links</a>
     <a href="{% url 'dash' %}">Back To Student Dash</a>
@@ -18,7 +18,15 @@ Differentiation
 <div id="content">
     <main>
         <div>
-            <p>womp womp</p>
+            <h3>Maths</h3>
+            <!--Maths differentiation goes here-->
+
+            {% if user.further_maths == True %}
+            <h3>Further Maths</h3>
+            <!--Further Maths differentiation goes here-->
+            
+            {% endif %}
+
         </div>
     </main>
 </div>

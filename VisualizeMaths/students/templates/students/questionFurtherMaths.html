@@ -25,13 +25,15 @@ Question Page Further Maths
 <form action="" method="post">
   {% csrf_token %}
   {% for q in student_questions %}
+  <div>
+    {% if q.is_graph == True %}
     <img src="{{ q.image.url }}" alt="">
-    <br>
+    {% endif %}
+  </div>
     <label for="">{{ q.question }}</label>
     <br>
     <math-field name="{{ q.question }}"></math-field>
     <!--<input type="text" name="{{ q.question }}" id="">-->
-    <br>
 
     <!--If the user has no input-->
     <div>
