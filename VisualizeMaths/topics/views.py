@@ -2,15 +2,24 @@ from django.shortcuts import render, redirect
 from students.views import get_user
 
 # Create your views here.
-def subject(request):
-    """Returns the subject page"""
+def mathsSubject(request):
+    """Returns the maths subject page"""
     #initially checks if the user exists 
     if 'user_id' in request.session:
-        user = get_user(request)
-        return render(request, 'topics/subject.html', {'user': user})
-    #if not the client requesting for this page is redirected to the sign up page
+        return render(request, 'topics/mathsSubject.html')
+    #if not the user requesting for this page is redirected to the sign up page
     else:
         return redirect('/home/signup/')
+    
+def furtherMathsSubject(request):
+    """Returns the further maths subject page"""
+    #initially checks if the user exists 
+    if 'user_id' in request.session:
+        return render(request, 'topics/furtherMathsSubject.html')
+    #if not the user requesting for this page is redirected to the sign up page
+    else:
+        return redirect('/home/signup/')
+
     
 def quadratics(request):
     """Returns the quadratics topic page"""

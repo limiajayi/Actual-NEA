@@ -37,31 +37,6 @@ Take Your Pick!
 
     <a href="{% url '3DVectors' %}">3D Vectors</a>
 </div>
-
-{% if user.further_maths == True %}
-<div>
-    <h3>Further Maths</h3>
-    <!--Further Maths topic links-->
-
-    <a href="{% url 'differentiation' %}">Differentiation</a>
-
-    <a href="{% url 'integration' %}">Integration</a>
-
-    <a href="{% url 'argandDiagrams' %}">Argand Diagrams</a>
-
-    <a href="{% url 'volumesOfRevolution' %}">Volumes of Revolution</a>
-
-    <a href="{% url 'methodsInCalculus' %}">Methods In Calculus</a>
-
-    <a href="{% url 'matrices' %}">Matrices</a>
-
-    <a href="{% url 'polarCoordinates' %}">Polar Coordinates</a>
-
-    <a href="{% url 'hyperbolic' %}">Hyperbolic Functions<a>
-
-    <a href="{% url '3DVectors' %}">3D Vectors</a>
-</div>
-{% endif %}
 </main>
 </div>
 <link rel="stylesheet" href="{% static 'students/topics.css' %}">

@@ -20,7 +20,7 @@ Student Dash
     <div id="content">
         <!--Show maths link and progress bar if a user does maths-->
         <div id="subject">
-            <a href="{% url 'subject' %}">
+            <a href="{% url 'maths' %}">
                 Maths
             </a>
             <progress value="{{ progressMaths }}" id="maths" max="500"></progress>
@@ -29,7 +29,7 @@ Student Dash
         <!--Show further maths link and progress bar if a user does further maths-->
         {% if user.further_maths == True %}
         <div id="subject">
-            <a href="{% url 'subject' %}">
+            <a href="{% url 'furtherMaths' %}">
                 Further Maths
             </a>
             <progress value="{{ progressFurtherMaths }}" id="fmaths" max="450"></progress>
@@ -39,7 +39,7 @@ Student Dash
         <div id="bottom">
             <div id="recommend">
                  <!--Recommendation system-->
-                <p>Would you like to try these topics?</p>
+                <p>From the questions you've done, we recommend you try these:</p>
                 {% if user.maths == True %}
                 <a href="#"> {{ mathsTopic }} </a>
                 {% endif %}
@@ -66,6 +66,7 @@ Student Dash
                 <a href="{% url 'qform' %}">What topic would you like to practise today?</a>
             </div>
         </div>
+        <p>The progress bars above are based on how much points you've gained</p>
     </div>
 </main>
 <link rel="stylesheet" href="{% static 'students/style.css' %}">

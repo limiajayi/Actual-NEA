@@ -88,7 +88,7 @@ def checkForNumbers(value):
    
 def checkCharacters(value):
    """Checks that the password contains at least one special character"""
-   characters = ['`', '~', '!',  '@', '#',  '£', '$', '%', '^', '*', '(', ')', '{', '}', '[', ']', '-', '_', '+', '=', '|', '<', '>', ',', '.', '?', ':']
+   characters = ['`', '~', '!',  '@', '#',  '£', '$', '%', '^', '*', '(', ')', '{', '}', '[', ']', '-', '_', '+', '=', '|', '<', '>', ',', '.', '?', ':', '&', '/']
    str = "Your password should contain one special character."
    if not any(i in characters for i in value):
       return str

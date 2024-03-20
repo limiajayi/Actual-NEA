@@ -100,7 +100,7 @@ def isItMonday():
     if today.weekday() == 0:
         return True
     else:
-        return True
+        return False
 
 def dash(request):
     """Returns the Student Dash"""
@@ -143,7 +143,8 @@ def mathsAssessment(request):
     chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', 
                                       marker_line_color='rgb(31, 31, 31)', marker_line_width=2, 
                                       marker_pattern_shape='/'))
-    bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)")
+    bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)", xaxis_title="Topics",
+    yaxis_title="Points Gained",)
     return bar_chart
 
 def furtherMathsAssessment(request):
@@ -237,6 +238,7 @@ def qform(request):
         subject = request.POST['subject']
         topic = request.POST['topic']
         difficulty = request.POST['difficulty']
+        examBoard = request.POST['exam_board']
         number = request.POST['number_of_questions']
 
         #if testQform() is false, return an error message to users
@@ -248,10 +250,10 @@ def qform(request):
             return render(request, 'students/qform.html', context)
         #else redirect the user to the appropriate question page
         elif subject == "Maths":
-            return redirect('/students/questionMaths/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty + '&number=' + number)
+            return redirect('/students/questionMaths/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty + '&number=' + number + '&exam_board=' + examBoard)
         
         elif subject == "Further Maths":
-            return redirect('/students/questionFurtherMaths/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty + '&number=' + number)
+            return redirect('/students/questionFurtherMaths/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty + '&number=' + number + '&exam_board=' + examBoard)
         
     #if the form hasn't been submitted yet
     context = {
@@ -337,7 +339,8 @@ def questionMaths(request):
         topic =  request.GET.get('topic')
         difficulty =  request.GET.get('difficulty')
         number = request.GET.get('number')
-        student_questions = Question.objects.filter(subject="Maths", topic=topic, difficulty=difficulty)[:int(number)]
+        examBoard = request.GET.get('exam_board')
+        student_questions = Question.objects.filter(subject="Maths", topic=topic, difficulty=difficulty, exam_board=examBoard)[:int(number)]
 
         #if a user submits their answers in the question page
         if request.method == 'POST':
@@ -385,7 +388,8 @@ def questionFurtherMaths(request):
         topic =  request.GET.get('topic')
         difficulty =  request.GET.get('difficulty')
         number = request.GET.get('number')
-        student_questions = Question.objects.filter(subject="Further Maths", topic=topic, difficulty=difficulty)[:int(number)]
+        examBoard = request.GET.get('exam_board')
+        student_questions = Question.objects.filter(subject="Further Maths", topic=topic, difficulty=difficulty, exam_board=examBoard)[:int(number)]
 
         if request.method == 'POST':
             for q in student_questions:

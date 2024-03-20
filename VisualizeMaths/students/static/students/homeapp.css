@@ -2,6 +2,7 @@ body {
     background-color: rgb(189, 189, 255);
     display: flex;
     flex-direction: column;
+    font-family: Copperplate, Papyrus, fantasy;
 }
 
 a {
@@ -12,6 +13,23 @@ a {
     border: 1px solid black;
     border-radius: 0.5rem;
     margin: auto;
+}
+
+#home-content {
+    display: flex;
+    width: 100%;
+    height: 35rem;
+}
+
+#home-nav {
+    background-color: rgb(168, 223, 156);
+    padding: 2%;
+    border-radius: 1rem;
+    border: 1.5px solid black;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    font-size: 16pt;
 }
 
 #content {

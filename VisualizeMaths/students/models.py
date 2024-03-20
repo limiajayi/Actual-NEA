@@ -67,6 +67,13 @@ TOPIC_CHOICES = [
    ("Polar Coordinates", "Polar Coordinates"),
    ("Hyperbolic Functions", "Hyperbolic Functions"),
 ]
+
+EXAM_BOARD_CHOICES = [
+    ("AQA", "AQA"),
+    ("Edexcel", "Edexcel"),
+    ("OCR", "OCR"),
+    ("WJEC", "WJEC")
+]
         
 class Question(models.Model):
    """Stores Questions according to subject, topic and difficulty"""
@@ -75,6 +82,7 @@ class Question(models.Model):
    subject = models.CharField(max_length=30, null=True, choices=SUBJECT_CHOICES)
    topic = models.CharField(max_length=100, null=True, blank=True, choices=TOPIC_CHOICES)
    difficulty = models.CharField(max_length=10, null=True, choices=Q_CHOICES)
+   exam_board = models.CharField(max_length=30, null=True, blank=True, choices=EXAM_BOARD_CHOICES)
    image = models.ImageField(upload_to='questions/', null=True, blank=True)
    mark_scheme = models.ImageField(upload_to='markschemes/', null=True, blank=True)
    is_graph = models.BooleanField(null=True, blank=True)

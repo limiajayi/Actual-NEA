@@ -13,4 +13,4 @@ class QuestionForm(forms.ModelForm):
 
     class Meta:
         model = Question
-        fields = ["subject", "topic", "difficulty"]
+        fields = ["subject", "topic", "difficulty", "exam_board"]
