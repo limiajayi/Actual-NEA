@@ -9,17 +9,13 @@ Weekly Assessments
     <a href="{% url 'dash' %}">Back To Student Dash</a>
     <a href="{% url 'graph' %}">Graphing Calculator</a>
 </nav>
-
-<div id="mathsChart">
-    {{ mathsChart|safe }}
-
-</div>
-
-<div>
-{% if user.further_maths == True %}
-    {{ fmathsChart|safe }}
-{% endif %}
-</div>
-
+    <main>
+        <p>This bar chart shows visually how many points gained in each maths topic</p>
+    
+        <div id="mathsChart">
+            {{ mathsChart|safe }}
+        </div>
+    
+    </main>
 <link rel="stylesheet" href="{% static 'students/style.css' %}">
 {% endblock %}

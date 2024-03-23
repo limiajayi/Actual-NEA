@@ -1,0 +1,20 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}
+Weekly Assessments
+{% endblock %}
+
+{% block content %}
+<nav>
+    <a href="{% url 'dash' %}">Back To Student Dash</a>
+    <a href="{% url 'graph' %}">Graphing Calculator</a>
+</nav>
+
+<p>This bar chart shows visually how many points gained in each further maths topic</p>
+
+<div id="Chart">
+    {{ fmathsChart|safe }}
+</div>
+
+<link rel="stylesheet" href="{% static 'students/style.css' %}">
+{% endblock %}

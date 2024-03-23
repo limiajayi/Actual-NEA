@@ -163,3 +163,7 @@ math-field {
     width: 4rem;
     height: 4rem;
 }
+
+main {
+    font-size: larger;
+}

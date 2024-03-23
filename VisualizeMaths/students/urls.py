@@ -9,7 +9,8 @@ urlpatterns = [
     path('questionMaths/', views.questionMaths), #the url pointing to views.questionMaths which returns the question page if a user is practising maths
     path('questionFurtherMaths/', views.questionFurtherMaths), #the url pointing to views.questionFurtherMaths which returns the question page if a user is practising further maths
     path('graph/', views.graph, name='graph'), #url pointing views.graph which returns the graphing calculator
-    path('assessments/', views.assessment, name='assessment'), #url pointing to views.assessment which returns the weekly assessments page
+    path('mathsAssessments/', views.mathsAssessment, name='mathsAssessment'), #url pointing to views.mathsAssessment which returns the maths weekly assessments page
+    path('fmathsAssessments/', views.furtherMathsAssessment, name='fmathsAssessment'), #url pointing to views.furtherMathsAssessment which returns the further weekly assessments page
     path('mathsSubject/', topics.views.mathsSubject, name='maths'), #url pointing to topic.views.subject which returns a page containing links to the maths topic pages
     path('fmathsSubject/', topics.views.furtherMathsSubject, name='furtherMaths'), #url pointing to topic.views.subject which returns a page containing links to the further maths topic pages
 ]

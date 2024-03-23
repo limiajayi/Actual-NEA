@@ -134,6 +134,7 @@ def dash(request):
         return redirect('/home/signup/')
 
 def mathsAssessment(request):
+    """This function creates a bar chart using plotly graph objects and renders the bar chart in the maths assessment page."""
     user = get_user(request)
     user_in_maths = MathsPoints.objects.get(username=user)
     topics = ['Quadratics', 'Equations and Inequalities', 'Graphs and Transformations', 'Straight Line Graphs', 
@@ -143,43 +144,32 @@ def mathsAssessment(request):
     chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', 
                                       marker_line_color='rgb(31, 31, 31)', marker_line_width=2, 
                                       marker_pattern_shape='/'))
-    bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)", xaxis_title="Topics",
-    yaxis_title="Points Gained",)
-    return bar_chart
+    bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)", 
+                                    xaxis_title="Topics", yaxis_title="Points Gained", font_size=18, font_color="Black")
+    mathsChart = bar_chart.to_html(full_html=False)
+    context = {
+        'mathsChart': mathsChart
+        }
+    return render(request, 'students/mathsAssessment.html', context)
 
 def furtherMathsAssessment(request):
+    """This function creates a bar chart using plotly graph objects and renders the bar chart in the further maths assessment page."""
     user = get_user(request)
-    if user.further_maths == True:
-        user_in_fmaths = FurtherMathsPoints.objects.get(username=user)
-        topics = ['Differentiation', 'Integration', 'Argand Diagrams', 'Volumes of Revolution', 'Methods In Calculus', 
+    user_in_fmaths = FurtherMathsPoints.objects.get(username=user)
+    topics = ['Differentiation', 'Integration', 'Argand Diagrams', 'Volumes of Revolution', 'Methods In Calculus', 
                   'Matrices', '3D vectors', 'Polar Coordinates', 'Hyperbolic Functions']
-        values = [user_in_fmaths.differentiation, user_in_fmaths.integration, user_in_fmaths.argand_diagrams, user_in_fmaths.volumes_of_revolution,
+    values = [user_in_fmaths.differentiation, user_in_fmaths.integration, user_in_fmaths.argand_diagrams, user_in_fmaths.volumes_of_revolution,
                   user_in_fmaths.methods_in_calculus, user_in_fmaths.matrices, user_in_fmaths.three_d_vectors, user_in_fmaths.polar_coordinates, user_in_fmaths.hyperbolic_functions]
-        chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', 
+    chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', 
                                       marker_line_color='rgb(31, 31, 31)', marker_line_width=2, 
                                       marker_pattern_shape='/'))
-        bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)")
-        return bar_chart
-    else:
-        return None
-    
-def assessment(request):
-    user = get_user(request)
-    if furtherMathsAssessment(request) == None:
-        mathsChart = mathsAssessment(request).to_html(full_html=False)
-        context = {
-        'mathsChart': mathsChart,
-        }
-        return render(request, 'students/assessment.html', context)
-    else:
-        mathsChart = mathsAssessment(request).to_html(full_html=False)
-        fmathsChart = furtherMathsAssessment(request).to_html(full_html=False)
-        context = {
-        'user': user,
-        'mathsChart': mathsChart,
+    bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)", 
+                                        xaxis_title="Topics", yaxis_title="Points Gained", font_size=18, font_color="Black")
+    fmathsChart = bar_chart.to_html(full_html=False)
+    context = {
         'fmathsChart': fmathsChart,
         }
-        return render(request, 'students/assessment.html', context)
+    return render(request, 'students/fmathsAssessment.html', context)
  
 def logout(request):
     """URL for the user to logout"""

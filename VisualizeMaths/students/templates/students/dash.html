@@ -41,18 +41,22 @@ Student Dash
                  <!--Recommendation system-->
                 <p>From the questions you've done, we recommend you try these:</p>
                 {% if user.maths == True %}
-                <a href="#"> {{ mathsTopic }} </a>
+                    {{ mathsTopic }}
                 {% endif %}
-        
+                <br>
                 {% if user.further_maths == True %}
-                <a href="#"> {{ furtherMathsTopic }} </a>
+                    {{ furtherMathsTopic }}
                 {% endif %}
             </div>
         
-                <!--Weekly assessments-->
+            <!--Weekly assessments-->
             {% if week == True %}
             <div id="assess">
-                <a href="{% url 'assessment' %}">Weekly Assessments</a>
+                <a href="{% url 'mathsAssessment' %}">Maths Weekly Assessments</a>
+                <br>
+                {% if user.further_maths == True %}
+                <a href="{% url 'fmathsAssessment' %}">Further Maths Weekly Assessments</a>
+                {% endif %}
             </div>
             {% endif %}
             {% if week == False %}
@@ -66,7 +70,7 @@ Student Dash
                 <a href="{% url 'qform' %}">What topic would you like to practise today?</a>
             </div>
         </div>
-        <p>The progress bars above are based on how much points you've gained</p>
+        The progress bars above are based on how many points you've gained.
     </div>
 </main>
 <link rel="stylesheet" href="{% static 'students/style.css' %}">
