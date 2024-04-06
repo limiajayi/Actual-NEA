@@ -1,0 +1,107 @@
+body {
+    background-color: rgb(189, 189, 255);
+    display: flex;
+    flex-direction: column;
+    font-family: Copperplate, Papyrus, fantasy;
+}
+
+a {
+    text-decoration: none;
+    background-color: rgb(255, 253, 242);
+    color: black;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    margin: auto;
+}
+
+#home-content {
+    display: flex;
+    width: 100%;
+    height: 35rem;
+}
+
+#home-nav {
+    background-color: rgb(168, 223, 156);
+    padding: 2%;
+    border-radius: 1rem;
+    border: 1.5px solid black;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    font-size: 16pt;
+}
+
+#content {
+    background-color: rgb(255, 253, 242);
+    width: 75%;
+    height: 100%;
+    margin: auto;
+    justify-content: flex-end;
+    padding: 2rem;
+    padding-bottom: 4rem;
+}
+
+nav {
+    display: flex;
+    justify-content: left;
+    border-bottom: 1.5px solid black;
+    padding: 1rem;
+    width: 98%;
+    background-color: rgb(189, 189, 255);
+}
+
+nav p {
+    margin: auto;
+    font-size: large;
+}
+
+form {
+    background-color: rgb(168, 223, 156);
+    margin: auto;
+    font-size: larger;
+    width: 85%;
+    padding: 2%;
+    border-radius: 1rem;
+    border: 1.5px solid black;
+}
+
+form .sign-up-field {
+    width: 30%;
+    height: 1.5rem;
+    border: 1.2px solid black;
+    border-radius: 0.5rem;
+}
+
+form .change-password-field {
+    width: 30%;
+    height: 1.5rem;
+    border: 1.2px solid black;
+    border-radius: 0.5rem;
+}
+
+form .login-field {
+    width: 30%;
+    height: 1.5rem;
+    border: 1.2px solid black;
+    border-radius: 0.5rem;
+}
+
+form .qform-field {
+    width: 30%;
+    height: 1.5rem;
+    border: 1.2px solid black;
+    border-radius: 0.5rem;
+}
+
+form label {
+    display: block;
+    padding: 1%;
+}
+
+button {
+    border-radius: 1rem;
+    font-size: large;
+    padding: 0.5rem;
+    border: 1.2px solid black;
+}
