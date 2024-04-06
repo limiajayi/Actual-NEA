@@ -6,12 +6,24 @@ Home Page
 
 {% endblock %}
 {% block content %}
-<div>
-    <div>
+<div id="home-content">
+    <div id="home-nav">
+        <h1>Visualize Maths</h1>
+        <p id="home-text"></p>
         <a href="{% url 'signup' %}" class="home-links">Sign Up</a>
 
         <a href="{% url 'login' %}" class="home-links">Login</a>
     </div>
 </div>
 <link rel="stylesheet" href="{% static 'students/homeapp.css' %}">
+    {% block scripts %}
+    <script>
+        arr = ["Ready to practise some maths?", "Yes there is simple harmonic motion in Further Maths", 
+        "It has worked solutions!!!", "All the visual maths and further maths pure content in one.", 
+        "It's all fun and games till x is a complex number"]
+
+        document.getElementById('home-text').innerText = arr[Math.floor(Math.random() * 5)]
+
+    </script>
+    {% endblock scripts %}
 {% endblock %}
