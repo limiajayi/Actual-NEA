@@ -61,6 +61,11 @@ def total_points_fmaths(request):
     else:
         return 0
     
+def totalPoints(request):
+    """Adds up the total amount of points a user has"""
+    value = total_points_fmaths(request) + total_points_maths(request)
+    return value
+    
 def recommendMaths(request):
     """Works out the topic with the lowest value in MathsPoints for a user and returns the name of the topic"""
     user = get_user(request)
@@ -132,6 +137,31 @@ def dash(request):
     #If there is no user id in request.session, redirect the user to the sign up page
     else:
         return redirect('/home/signup/')
+        
+def userSettings(request):
+    """Returns a page that allows users to change their password or delete their account."""
+    total = totalPoints(request)
+    context = {
+        'total': total,
+    }
+    return render(request, 'students/userSettings.html', context)
+
+def changePassword(request):
+    """Returns a page that allows users to change their account."""
+    user = get_user(request)
+    if request.method == 'POST':
+        passsword = request.POST['password']
+        user.password = passsword
+        user.save()
+    else:
+        context = {}
+        return render(request, 'students/changePassword.html', context)
+    
+def deleteAccount(request):
+    """Deletes the users account"""
+    user = get_user(request)
+    user.delete()
+    return redirect('/home/signup/')
 
 def mathsAssessment(request):
     """This function creates a bar chart using plotly graph objects and renders the bar chart in the maths assessment page."""

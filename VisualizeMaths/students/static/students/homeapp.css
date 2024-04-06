@@ -73,6 +73,13 @@ form .sign-up-field {
     border-radius: 0.5rem;
 }
 
+form .change-password-field {
+    width: 30%;
+    height: 1.5rem;
+    border: 1.2px solid black;
+    border-radius: 0.5rem;
+}
+
 form .login-field {
     width: 30%;
     height: 1.5rem;
@@ -89,6 +96,7 @@ form .qform-field {
 
 form label {
     display: block;
+    padding: 1%;
 }
 
 button {

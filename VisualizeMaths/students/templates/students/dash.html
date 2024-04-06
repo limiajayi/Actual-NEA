@@ -8,7 +8,7 @@ Student Dash
 <nav>
     <!--Navigate to other pages-->
     <div id="user">
-        Hello {{ user.username }}
+        Hello <a href="{% url 'userSettings' %}">{{ user.username }}</a>
     </div>
     <div id="links">
         <a href="{% url 'graph' %}">Graphing Calculator</a>

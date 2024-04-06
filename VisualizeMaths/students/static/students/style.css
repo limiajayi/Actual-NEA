@@ -37,6 +37,11 @@ nav {
 }
 
 nav a {
+    text-decoration: underline;
+    color: black;
+}
+
+nav #links a {
     text-decoration: none;
     background-color: rgb(255, 253, 242);
     color: black;
