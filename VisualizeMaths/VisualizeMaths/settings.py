@@ -39,6 +39,7 @@ SECURE_SSL_REDIRECT = True
 
 ALLOWED_HOSTS = ['visualizemaths.pythonanywhere.com', '127.0.0.1']
 
+# ALLOWED_HOSTS = []
 # ALLOWED_HOSTS = ['.pythonanywhere.com','127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ['https://visualizemaths.pythonanywhere.com']
