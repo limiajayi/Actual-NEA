@@ -11,7 +11,6 @@ class MathsPoints(models.Model):
     straight_line_graphs = models.IntegerField(default=0, blank=True)
     circles = models.IntegerField(default=0, blank=True)
     trigonometry = models.IntegerField(default=0, blank=True)
-    parametrics = models.IntegerField(default=0, blank=True)
     differentiation = models.IntegerField(default=0, blank=True)
     integration = models.IntegerField(default=0, blank=True)
     exponents = models.IntegerField(default=0, blank=True)
@@ -56,7 +55,6 @@ TOPIC_CHOICES = [
    ("Straight Line Graphs", "Straight Line Graphs"),
    ("Circles", "Circles"),
    ("Trigonometry", "Trigonometry"),
-   ("Parametric Equations", "Parametric Equations"),
    ("Differentiation", "Differentiation"),
    ("Integration", "Integration"),
    ("Exponentials and Logarithms", "Exponentials and Logarithms"),

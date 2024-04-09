@@ -13,7 +13,6 @@ urlpatterns = [
     path('straightLineGraphs/', views.straightLineGraphs, name='straightLineGraphs'),
     path('cirlces/', views.circles, name='circles'),
     path('trigonometry/', views.trigonometry, name='trigonometry'),
-    path('parametrics/', views.parametrics, name='parametrics'),
     path('differentiation/', views.differentiation, name='differentiation'),
     path('integration/', views.integration, name='integration'),
     path('logarithms/', views.exponents, name='exponents'),

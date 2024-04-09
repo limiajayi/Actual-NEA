@@ -306,8 +306,6 @@ def addToPointsMaths(request, topic, difficulty):
         user_in_points.circles += determine_points(difficulty)
     elif topic == "Trigonometry":
         user_in_points.trigonometry += determine_points(difficulty)
-    elif topic == "Parametric Equations":
-        user_in_points.parametrics += determine_points(difficulty)
     elif topic == "Differentiation":
         user_in_points.differentiation += determine_points(difficulty)
     elif topic == "Integration":

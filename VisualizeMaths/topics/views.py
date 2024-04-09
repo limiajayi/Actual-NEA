@@ -57,10 +57,6 @@ def differentiation(request):
     }
     return render(request, 'topics/differentiation.html', context)
 
-def parametrics(request):
-    """Returns the parametric topic page"""
-    return render(request, 'topics/parametrics.html')
-
 def integration(request):
     """Returns the integration topic page"""
     return render(request, 'topics/integration.html')
