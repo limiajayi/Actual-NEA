@@ -150,7 +150,7 @@ def changePassword(request):
     """Returns a page that allows users to change their account."""
     user = get_user(request)
     if request.method == 'POST':
-        passsword = request.POST.get('password', False);
+        passsword = request.POST.get('password', 'Something Else.');
         user.password = passsword
         user.save()
         message = "Password changed successfully!"
