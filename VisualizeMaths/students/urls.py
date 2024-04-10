@@ -15,5 +15,5 @@ urlpatterns = [
     path('mathsSubject/', topics.views.mathsSubject, name='maths'), #url pointing to topic.views.subject which returns a page containing links to the maths topic pages
     path('fmathsSubject/', topics.views.furtherMathsSubject, name='furtherMaths'), #url pointing to topic.views.subject which returns a page containing links to the further maths topic pages
     path('userSettings/', views.userSettings, name='userSettings'), #url pointing to views.userSettings which allows people to update their account
-    path('changePassword/', views.changePassword, name='changePassword')
+    path('changePassword/', views.changePassword, name='changePassword') #url pointing to views.changePassword which allows the user to change their password.
 ]
