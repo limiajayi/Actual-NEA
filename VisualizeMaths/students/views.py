@@ -150,9 +150,12 @@ def changePassword(request):
     """Returns a page that allows users to change their account."""
     user = get_user(request)
     if request.method == 'POST':
-        passsword = request.POST.get('password');
+        #If a user submits the form, retrieve the value of the input with a name of password
+        passsword = request.POST.get('password')
+        #save this new password in StudentUser
         user.password = passsword
         user.save()
+        #Redirect the user to userSettings with a new password change message.
         message = "Password changed successfully!"
         total = totalPoints(request)
         context = {
