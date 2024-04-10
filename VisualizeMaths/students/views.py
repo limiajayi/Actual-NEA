@@ -150,9 +150,16 @@ def changePassword(request):
     """Returns a page that allows users to change their account."""
     user = get_user(request)
     if request.method == 'POST':
-        passsword = request.POST['password']
+        passsword = request.POST.get('password', False);
         user.password = passsword
         user.save()
+        message = "Password changed successfully!"
+        total = totalPoints(request)
+        context = {
+            'message': message,
+            'total': total,
+        }
+        return render(request, 'students/userSettings.html', context)
     else:
         context = {}
         return render(request, 'students/changePassword.html', context)

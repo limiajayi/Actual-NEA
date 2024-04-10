@@ -14,7 +14,9 @@ Your Settings
         <a href="{% url 'changePassword' %}">Change Password</a>
         <a href="{url 'delete'}" style="color: red; font-weight: 600;">Delete Account</a>
     </main>
+    {% if message %}
+      <p> {{ message }}</p>
+    {% endif %}
 </div>
-
 <link rel="stylesheet" href="{% static 'students/topics.css' %}">
 {% endblock %}
