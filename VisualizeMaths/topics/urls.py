@@ -1,6 +1,6 @@
-from django.urls import path
-from . import views
-import students.views
+from django.urls import path #an inbuilt django function used for routing urls to the appropriate views.py function
+from . import views #a file that contains functions that take http requests and return the page corresponding to that request
+import students.views #this file has the same function as the file above except it returns pages in the students app
 
 urlpatterns = [
     path('dash/', students.views.dash, name='dash'), #URL which lets the topic app have access to student dash
@@ -11,7 +11,7 @@ urlpatterns = [
     path('inequalities/', views.inequalities, name='inequalites'),
     path('transformations/', views.graphsTransformations, name='transformations'),
     path('straightLineGraphs/', views.straightLineGraphs, name='straightLineGraphs'),
-    path('cirlces/', views.circles, name='circles'),
+    path('circles/', views.circles, name='circles'),
     path('trigonometry/', views.trigonometry, name='trigonometry'),
     path('differentiation/', views.differentiation, name='differentiation'),
     path('integration/', views.integration, name='integration'),

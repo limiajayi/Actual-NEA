@@ -1,4 +1,4 @@
-{% extends 'home/base.html' %}
+{% extends 'home/base.html' %} <!--Similar to saying qform.html inherits base.html-->
 {% load static %}
 {% block title %}
 Question Form
@@ -6,6 +6,7 @@ Question Form
 
 {% block content %}
 <nav>
+  <!--Link that returns the user back to the student dash-->
   <a href="{% url 'dash' %}">Back To Student Dash</a>
 </nav>
 <div id="content">
@@ -14,6 +15,7 @@ Question Form
   <div>
     <legend>Select Your Questions</legend>
   {% csrf_token %}
+  <!--Form defined in forms.py-->
   {{ form.as_p }}
 
   <button type="submit" name="">Submit</button>
@@ -26,6 +28,7 @@ Question Form
 </form>
 {% endif %}
 
+<!--Block of code shown to users if they use the wrong filter-->
 {% if message %}
 
 {{ message }}

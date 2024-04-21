@@ -1,10 +1,10 @@
-from django.db import models
-from home.models import StudentUser
+from django.db import models #a class that defines the structure of databases
+from home.models import StudentUser #table that contains student users
 
 # Create your models here.
 class MathsPoints(models.Model):
     """Stores the maths points in each maths topic for each user within StudentUser"""
-    username = models.OneToOneField(StudentUser, on_delete=models.CASCADE, null=True, unique=True)
+    username = models.OneToOneField(StudentUser, on_delete=models.CASCADE, null=True, unique=True) #username in this table has a one to one relationship with username in StudentUsers, if an instance of a user in StudentUser is deleted, then they are deleted in this table as well
     quadratics = models.IntegerField(default=0, blank=True)
     equations_and_inequalities = models.IntegerField(default=0, blank=True)
     graphs_and_transformations = models.IntegerField(default=0, blank=True)
@@ -18,11 +18,12 @@ class MathsPoints(models.Model):
     three_d_vectors = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
+        """Returns the usernames when viewing the table"""
         return str(self.username)
     
 class FurtherMathsPoints(models.Model):
     """Stores the further maths points in each further maths topic for users doing further maths within StudentUser"""
-    username = models.OneToOneField(StudentUser, on_delete=models.CASCADE, null=True, unique=True)
+    username = models.OneToOneField(StudentUser, on_delete=models.CASCADE, null=True, unique=True) #username in this table has a one to one relationship with username in StudentUsers, if an instance of a user in StudentUser is deleted, then they are deleted in this table as well
     differentiation = models.IntegerField(default=0, blank=True)
     integration = models.IntegerField(default=0, blank=True)
     argand_diagrams = models.IntegerField(default=0, blank=True)
@@ -34,20 +35,23 @@ class FurtherMathsPoints(models.Model):
     three_d_vectors = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
+        """Returns the usernames when viewing the table"""
         return str(self.username)
-    
+
+#a list of choices for the question table in which users can set the question difficulty    
 Q_CHOICES = [
    ("Easy", "Easy"),
    ("Medium", "Medium"),
    ("Hard", "Hard"),
 ]
 
+#a list of choices for the question table in which users can choose to do either maths or further maths subjects
 SUBJECT_CHOICES = [
    ("Maths", "Maths"),
    ("Further Maths", "Further Maths")
 ]
 
-
+#a list of choices for the question table in which users can choose what topic they want to do
 TOPIC_CHOICES = [
    ("Quadratics", "Quadratics"),
    ("Equations and Inequalities", "Equations and Inequalities"),
@@ -89,5 +93,6 @@ class Question(models.Model):
    worked_solutions = models.ImageField(upload_to='solutions/', null=True, blank=True)
 
    def __str__(self):
+        """Returns the subject, topic and difficulty when viewing the question table"""
         return str(self.subject) + str(self.topic) + str(self.difficulty)
 

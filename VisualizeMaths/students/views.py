@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from home.models import StudentUser
+from django.shortcuts import render, redirect #render is an inbuilt function that renders html templates and redirect changes the url of a user
+from home.models import StudentUser #table containing student users
 from .models import MathsPoints, FurtherMathsPoints, Question
 from .forms import QuestionForm
 import plotly.graph_objects as go
@@ -36,12 +36,12 @@ def total_points_maths(request):
     """Adds up the points a user has in maths"""
     user = get_user(request)
     user_in_maths = MathsPoints.objects.get(username=user)
-    fields = [f for f in MathsPoints._meta.get_fields() if f.name not in  ['id', 'username']]
+    fields = [f for f in MathsPoints._meta.get_fields() if f.name not in  ['id', 'username']] #selects all the fields in maths points except the id field and username field
     total = 0
 
     for f in fields:
-        value = getattr(user_in_maths, f.name)
-        total += value
+        value = getattr(user_in_maths, f.name) #gets the value of the field for a user
+        total += value #the value above is added to total
     return total
 
 def total_points_fmaths(request):
@@ -51,13 +51,14 @@ def total_points_fmaths(request):
     #checks if the user is doing further maths
     if user.further_maths == True:
         user_in_fmaths = FurtherMathsPoints.objects.get(username=user)
-        fields = [f for f in FurtherMathsPoints._meta.get_fields() if f.name not in  ['id', 'username']]
+        fields = [f for f in FurtherMathsPoints._meta.get_fields() if f.name not in  ['id', 'username']] #selects all the fields in maths points except the id field and username field
         total = 0
 
         for f in fields:
-            value = getattr(user_in_fmaths, f.name)
-            total += value
+            value = getattr(user_in_fmaths, f.name) #gets the value of the field for a user
+            total += value #the value above is added to total
         return total
+    # returns 0 if the user is not doing further maths
     else:
         return 0
     
@@ -70,12 +71,13 @@ def recommendMaths(request):
     """Works out the topic with the lowest value in MathsPoints for a user and returns the name of the topic"""
     user = get_user(request)
     user_in_maths = MathsPoints.objects.get(username=user)
-    fields = [f for f in MathsPoints._meta.get_fields() if f.name not in  ['id', 'username']]
-    lowest_value = float('inf')
+    fields = [f for f in MathsPoints._meta.get_fields() if f.name not in  ['id', 'username']] #list of fields in mathspoints except id and username
+    lowest_value = float('inf') #variable assigned to infinity
     
     for f in fields:
-        value = getattr(user_in_maths, f.name)
+        value = getattr(user_in_maths, f.name) #gets the value of a mathspoints field for a user
         if value < lowest_value:
+            #if the value of the field is less than infinity, reassign the  variable to the lower value and set lowest_value_field to the field name
             lowest_value = value
             lowest_value_field = f.name
     return lowest_value_field
@@ -87,16 +89,18 @@ def recommendFurtherMaths(request):
     #Initially checks if the user is doing further maths
     if user.further_maths == True:
         user_in_fmaths = FurtherMathsPoints.objects.get(username=user)
-        fields = [f for f in FurtherMathsPoints._meta.get_fields() if f.name not in  ['id', 'username']]
-        lowest_value = float('inf')
+        fields = [f for f in FurtherMathsPoints._meta.get_fields() if f.name not in  ['id', 'username']] #list of fields in mathspoints except id and username
+        lowest_value = float('inf') #variable assigned to infinity
 
         for f in fields:
-            value = getattr(user_in_fmaths, f.name)
+            value = getattr(user_in_fmaths, f.name) #gets the value of a mathspoints field for a user
             if value < lowest_value:
+                #if the value of the field is less than infinity, reassign the  variable to the lower value and set lowest_value_field to the field name
                 lowest_value = value
                 lowest_value_field = f.name
         return lowest_value_field
     else:
+        #if the user doesn't do further maths, return None
         return None
 
 def isItMonday():
@@ -178,15 +182,15 @@ def mathsAssessment(request):
     user = get_user(request)
     user_in_maths = MathsPoints.objects.get(username=user)
     topics = ['Quadratics', 'Equations and Inequalities', 'Graphs and Transformations', 'Straight Line Graphs', 
-            'Circles', 'Trigonometry', 'Differentiation', 'Integration', 'Exponentials and Logarithms', '2D Vectors']
+            'Circles', 'Trigonometry', 'Differentiation', 'Integration', 'Exponentials and Logarithms', '2D Vectors'] #these are the labels on the x axis
     values = [user_in_maths.quadratics,  user_in_maths.equations_and_inequalities,  user_in_maths.graphs_and_transformations,  user_in_maths.straight_line_graphs,  
-              user_in_maths.circles,  user_in_maths.trigonometry,  user_in_maths.differentiation, user_in_maths.integration,  user_in_maths.exponents,  user_in_maths.two_d_vectors]
+              user_in_maths.circles,  user_in_maths.trigonometry,  user_in_maths.differentiation, user_in_maths.integration,  user_in_maths.exponents,  user_in_maths.two_d_vectors] #these are the values on the y axis
     chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', 
                                       marker_line_color='rgb(31, 31, 31)', marker_line_width=2, 
-                                      marker_pattern_shape='/'))
+                                      marker_pattern_shape='/')) #this using graph objects to convert the data above into a bar chart
     bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)", 
-                                    xaxis_title="Topics", yaxis_title="Points Gained", font_size=18, font_color="Black")
-    mathsChart = bar_chart.to_html(full_html=False)
+                                    xaxis_title="Topics", yaxis_title="Points Gained", font_size=18, font_color="Black") 
+    mathsChart = bar_chart.to_html(full_html=False) #this converts the chart to html
     context = {
         'mathsChart': mathsChart
         }
@@ -202,7 +206,7 @@ def furtherMathsAssessment(request):
                   user_in_fmaths.methods_in_calculus, user_in_fmaths.matrices, user_in_fmaths.three_d_vectors, user_in_fmaths.polar_coordinates, user_in_fmaths.hyperbolic_functions]
     chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', 
                                       marker_line_color='rgb(31, 31, 31)', marker_line_width=2, 
-                                      marker_pattern_shape='/'))
+                                      marker_pattern_shape='/')) #this using graph objects to convert the data above into a bar chart
     bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)", 
                                         xaxis_title="Topics", yaxis_title="Points Gained", font_size=18, font_color="Black")
     fmathsChart = bar_chart.to_html(full_html=False)

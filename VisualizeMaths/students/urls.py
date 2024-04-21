@@ -1,6 +1,6 @@
-from django.urls import path
-from . import views
-import topics.views
+from django.urls import path #an inbuilt django function used for routing urls to the appropriate views.py function
+from . import views #a file that contains functions that take http requests and return the page corresponding to that request
+import topics.views #this file has the same function as the file above except it returns subject and topic pages
 
 urlpatterns = [
     path('dash/', views.dash, name='dash'), #the url pointing to views.dash which returns the student dash

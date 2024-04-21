@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
-from .forms import SignupForm, LoginForm
-from .models import StudentUser
-from django.contrib.auth.hashers import check_password
+from django.shortcuts import render, redirect #render is an inbuilt function that renders html templates and redirect changes the url of a user
+from .forms import SignupForm, LoginForm #the forms for the sign up and login page
+from .models import StudentUser #table containing student users
+from django.contrib.auth.hashers import check_password # a function that returns a boolean on whether a raw text password matches it's hashed counterpart
 
 # Create your views here.
 

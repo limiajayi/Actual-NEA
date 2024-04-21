@@ -1,5 +1,5 @@
-from django.urls import path
-from . import views
+from django.urls import path #an inbuilt django function used for routing urls to the appropriate views.py function
+from . import views #a file that contains functions that take http requests and return the page corresponding to that request
 
 urlpatterns = [
     path('', views.home, name='home'), #the url pointing to views.home which returns the home page

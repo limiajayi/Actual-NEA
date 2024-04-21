@@ -1,4 +1,4 @@
-{% extends 'home/base.html' %}
+{% extends 'home/base.html' %} <!--Similar to saying graph.html inherits base.html-->
 {% load static %}
 {% block title %}
 Graphing Calculator
@@ -9,14 +9,16 @@ Graphing Calculator
     <a href="{% url 'dash' %}" id="graph-links">Back To Student Dash</a>
 </nav>
 
+<!--Javascript for the graphing calculator-->
 <script src="https://www.desmos.com/api/v1.8/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+<!--The inline styliing resizes the graphing calculator to fit within the page-->
 <div id="calculator" style="width: 90vw; height: 85vh; margin: auto;"></div>
 <p>
     Created with the Desmos API, used with permission from Desmos Studio PBC.
 </p>
 <script>
-    var elt = document.getElementById('calculator');
-    var calculator = Desmos.GraphingCalculator(elt);
+    var elt = document.getElementById('calculator'); //variable that selects the div using it's id
+    var calculator = Desmos.GraphingCalculator(elt); //variable that places the graphing calculator into the element above
 </script>
 <link rel="stylesheet" href="{% static 'students/style.css' %}">
 {% endblock %}

@@ -1,15 +1,18 @@
-from .models import StudentUser
-from django import forms
+from .models import StudentUser #table that contains the student users imported from models.py
+from django import forms #an inbuilt django class for html form handling
 
 class SignupForm(forms.ModelForm):
-    password = forms.CharField(max_length=250, widget = forms.PasswordInput())
+    """Creates a form based on the StudentUser table"""
+    password = forms.CharField(max_length=250, widget = forms.PasswordInput()) #hides the password while it's being typed in the form
 
     def __init__(self, *args, **kwargs):
+        #when the form is being initialised this adds a class of sign-up-field to each input box
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'sign-up-field'
 
     class Meta:
+        #an object that specifies which fields from a table should be added and makes sure they do not clash with extra fields defined in the form
         model = StudentUser
         fields = "__all__"
         labels = {
@@ -30,7 +33,7 @@ class LoginForm(forms.ModelForm):
             visible.field.widget.attrs['class'] = 'login-field'
     
     class Meta:
-        #defines the fields from StudentUser that is shown on the login page
+        #an object that specifies which fields from a table should be added and makes sure they do not clash with extra fields defined in the form
         model = StudentUser
         fields = ["username", "password",]
         labels = {
