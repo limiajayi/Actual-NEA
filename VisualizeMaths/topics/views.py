@@ -79,7 +79,12 @@ def threeDVectors(request):
 
 def argandDiagrams(request):
     """Returns the Argand Diagrams topic page"""
-    return render(request, 'topics/argandDiagrams.html')
+     #if the user exists in the StudentUser table
+    if 'user_id' in request.session:
+        return render(request, 'topics/argandDiagrams.html')
+    else:
+         #If the user doesn't exist in the StudentUser table, redirect the user to the sign up page
+        return redirect('/home/signup/')
 
 def volumesOfRevolution(request):
     """Returns the Volumes of Revolution topic page"""

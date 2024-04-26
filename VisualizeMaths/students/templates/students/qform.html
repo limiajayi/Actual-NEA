@@ -31,7 +31,7 @@ Question Form
 <!--Block of code shown to users if they use the wrong filter-->
 {% if message %}
 
-{{ message }}
+<p>{{ message }}</p>
 <a href="{% url 'qform' %}">Please filter for different questions.</a>
 
 {% endif %}

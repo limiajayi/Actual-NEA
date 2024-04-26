@@ -1,0 +1,21 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}
+500 Error
+{% endblock %}
+
+{% block content %}
+<!--This is where users are routed when theres a 404 error-->
+
+<div id="content">
+    <main>
+        <div>
+            <h3>Server Error (500)</h3>
+            <p>Something went wrong on the server</p>
+            <a href="{% url 'dash' %}">Back To Student Dash</a>
+        </div>
+    </main>
+</div>
+
+<link rel="stylesheet" href="{% static 'students/topics.css' %}">
+{% endblock %}

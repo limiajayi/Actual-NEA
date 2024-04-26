@@ -1,0 +1,21 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}
+404 Error
+{% endblock %}
+
+{% block content %}
+<!--This is where users are routed when theres a 404 error-->
+
+<div id="content">
+    <main>
+        <div>
+            <h3>Page Not Found (404)</h3>
+            <p>The requested page doesn't exist.</p>
+            <a href="{% url 'dash' %}">Back To Student Dash</a>
+        </div>
+    </main>
+</div>
+
+<link rel="stylesheet" href="{% static 'students/topics.css' %}">
+{% endblock %}

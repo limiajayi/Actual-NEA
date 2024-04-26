@@ -19,6 +19,11 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+#Custom 404 error view
+handler404 = 'home.views.custom404'
+#Custom 500 error view
+handler500 = 'home.views.custom500'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')), #URLs for home app

@@ -191,4 +191,10 @@ def signup(request):
   }
   return render(request, 'home/signup.html', context)
 
- 
+def custom404(request, exception):
+   #the page returned when theres an error with the request
+   return render(request, 'home/error404.html', status=404)
+
+def custom500(request):
+   #the page returned when theres an error with the server
+   return render(request, 'home/error500.html', status=500)

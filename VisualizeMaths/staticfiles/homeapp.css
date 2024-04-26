@@ -105,3 +105,13 @@ button {
     padding: 0.5rem;
     border: 1.2px solid black;
 }
+
+main {
+    background-color: rgb(168, 223, 156);
+    font-size: larger;
+    margin: auto;
+    width: 85%;
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 1.5px solid black;
+}
