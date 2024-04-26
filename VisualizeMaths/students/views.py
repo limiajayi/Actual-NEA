@@ -143,77 +143,103 @@ def dash(request):
         return redirect('/home/signup/')
         
 def userSettings(request):
-    """Returns a page that allows users to change their password or delete their account."""
-    total = totalPoints(request)
-    context = {
-        'total': total,
-    }
-    return render(request, 'students/userSettings.html', context)
-
-def changePassword(request):
-    """Returns a page that allows users to change their account."""
-    user = get_user(request)
-    if request.method == 'POST':
-        #If a user submits the form, retrieve the value of the input with a name of password
-        passsword = request.POST.get('password')
-        #save this new password in StudentUser
-        user.password = passsword
-        user.save()
-        #Redirect the user to userSettings with a new password change message.
-        message = "Password changed successfully!"
+    #if the user exists in the StudentUser table
+    if 'user_id' in request.session:
+        """Returns a page that allows users to change their password or delete their account."""
         total = totalPoints(request)
         context = {
-            'message': message,
             'total': total,
         }
         return render(request, 'students/userSettings.html', context)
+     
+     #If the user doesn't exist in the StudentUser table, redirect the user to the sign up page
     else:
-        context = {}
-        return render(request, 'students/changePassword.html', context)
+        return redirect('/home/signup/')
+
+def changePassword(request):
+    """Returns a page that allows users to change their account."""
+    #if the user exists in the StudentUser table
+    if 'user_id' in request.session:
+        user = get_user(request)
+        if request.method == 'POST':
+            #If a user submits the form, retrieve the value of the input with a name of password
+            passsword = request.POST.get('password')
+            #save this new password in StudentUser
+            user.password = passsword
+            user.save()
+            #Redirect the user to userSettings with a new password change message.
+            message = "Password changed successfully!"
+            total = totalPoints(request)
+            context = {
+                'message': message,
+                'total': total,
+            }
+            return render(request, 'students/userSettings.html', context)
+        else:
+            context = {}
+            return render(request, 'students/changePassword.html', context)
+    else:
+         #If the user doesn't exist in the StudentUser table, redirect the user to the sign up page
+        return redirect('/home/signup/')
     
 def deleteAccount(request):
     """Deletes the users account"""
-    user = get_user(request)
-    user.delete()
-    return redirect('/home/signup/')
+    if 'user_id' in request.session:
+        user = get_user(request)
+        user.delete()
+        return redirect('/home/signup/')
+    else:
+         #If the user doesn't exist in the StudentUser table, redirect the user to the sign up page
+        return redirect('/home/signup/')
 
 def mathsAssessment(request):
     """This function creates a bar chart using plotly graph objects and renders the bar chart in the maths assessment page."""
-    user = get_user(request)
-    user_in_maths = MathsPoints.objects.get(username=user)
-    topics = ['Quadratics', 'Equations and Inequalities', 'Graphs and Transformations', 'Straight Line Graphs', 
+    #if a user exists in StudentUser table
+    if 'user_id' in request.session:
+        user = get_user(request)
+        user_in_maths = MathsPoints.objects.get(username=user)
+        topics = ['Quadratics', 'Equations and Inequalities', 'Graphs and Transformations', 'Straight Line Graphs', 
             'Circles', 'Trigonometry', 'Differentiation', 'Integration', 'Exponentials and Logarithms', '2D Vectors'] #these are the labels on the x axis
-    values = [user_in_maths.quadratics,  user_in_maths.equations_and_inequalities,  user_in_maths.graphs_and_transformations,  user_in_maths.straight_line_graphs,  
+        values = [user_in_maths.quadratics,  user_in_maths.equations_and_inequalities,  user_in_maths.graphs_and_transformations,  user_in_maths.straight_line_graphs,  
               user_in_maths.circles,  user_in_maths.trigonometry,  user_in_maths.differentiation, user_in_maths.integration,  user_in_maths.exponents,  user_in_maths.two_d_vectors] #these are the values on the y axis
-    chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', 
+        chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', 
                                       marker_line_color='rgb(31, 31, 31)', marker_line_width=2, 
                                       marker_pattern_shape='/')) #this using graph objects to convert the data above into a bar chart
-    bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)", 
-                                    xaxis_title="Topics", yaxis_title="Points Gained", font_size=18, font_color="Black") 
-    mathsChart = bar_chart.to_html(full_html=False) #this converts the chart to html
-    context = {
+        bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)", 
+                                    xaxis_title="Topics", yaxis_title="Points Gained", font_size=18, font_color="Black") #some extra styling to the graph
+        mathsChart = bar_chart.to_html(full_html=False) #this converts the chart to html
+        context = {
         'mathsChart': mathsChart
         }
-    return render(request, 'students/mathsAssessment.html', context)
+        return render(request, 'students/mathsAssessment.html', context)
+    else:
+        #else return the sign up page
+        return redirect('/home/signup/')
+
+    
 
 def furtherMathsAssessment(request):
     """This function creates a bar chart using plotly graph objects and renders the bar chart in the further maths assessment page."""
-    user = get_user(request)
-    user_in_fmaths = FurtherMathsPoints.objects.get(username=user)
-    topics = ['Differentiation', 'Integration', 'Argand Diagrams', 'Volumes of Revolution', 'Methods In Calculus', 
+    if 'user_id' in request.session:
+        user = get_user(request)
+        user_in_fmaths = FurtherMathsPoints.objects.get(username=user)
+        topics = ['Differentiation', 'Integration', 'Argand Diagrams', 'Volumes of Revolution', 'Methods In Calculus', 
                   'Matrices', '3D vectors', 'Polar Coordinates', 'Hyperbolic Functions']
-    values = [user_in_fmaths.differentiation, user_in_fmaths.integration, user_in_fmaths.argand_diagrams, user_in_fmaths.volumes_of_revolution,
+        values = [user_in_fmaths.differentiation, user_in_fmaths.integration, user_in_fmaths.argand_diagrams, user_in_fmaths.volumes_of_revolution,
                   user_in_fmaths.methods_in_calculus, user_in_fmaths.matrices, user_in_fmaths.three_d_vectors, user_in_fmaths.polar_coordinates, user_in_fmaths.hyperbolic_functions]
-    chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', 
+        chart = go.Figure(data=go.Bar(x=topics, y=values, marker_color='rgb(168, 223, 156)', 
                                       marker_line_color='rgb(31, 31, 31)', marker_line_width=2, 
                                       marker_pattern_shape='/')) #this using graph objects to convert the data above into a bar chart
-    bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)", 
-                                        xaxis_title="Topics", yaxis_title="Points Gained", font_size=18, font_color="Black")
-    fmathsChart = bar_chart.to_html(full_html=False)
-    context = {
-        'fmathsChart': fmathsChart,
-        }
-    return render(request, 'students/fmathsAssessment.html', context)
+        bar_chart = chart.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgb(255, 253, 242)", 
+                                        xaxis_title="Topics", yaxis_title="Points Gained", font_size=18, font_color="Black") #this is some extra styling in the graph
+        fmathsChart = bar_chart.to_html(full_html=False) #this converts the graph to html
+        context = {
+            'fmathsChart': fmathsChart,
+            }
+        return render(request, 'students/fmathsAssessment.html', context)
+    else:
+        #else return the further maths assessment page
+        return redirect('/home/signup/')
  
 def logout(request):
     """URL for the user to logout"""
@@ -265,35 +291,41 @@ def testQform(subject, topic):
 
 def qform(request):
     """Collects the subject, topic, difficulty and number of questions a user wants to do and redirects them to the question page."""
-    form = QuestionForm()
+    #if the requesting user is in the StudentUser table
+    if 'user_id' in request.session:
+        form = QuestionForm()
 
-    #if a user submits the form
-    if request.method == 'POST':
-        subject = request.POST['subject']
-        topic = request.POST['topic']
-        difficulty = request.POST['difficulty']
-        examBoard = request.POST['exam_board']
-        number = request.POST['number_of_questions']
+        #if a user submits the form
+        if request.method == 'POST':
+            subject = request.POST['subject']
+            topic = request.POST['topic']
+            difficulty = request.POST['difficulty']
+            examBoard = request.POST['exam_board']
+            number = request.POST['number_of_questions']
 
-        #if testQform() is false, return an error message to users
-        if testQform(subject, topic) == False:
-            message = "There are no " + topic + " questions in " + subject + "."
+            #if testQform() is false, return an error message to users
+            if testQform(subject, topic) == False:
+                message = "There are no " + topic + " questions in " + subject + "."
+                context = {
+                    'message': message,
+                }
+                return render(request, 'students/qform.html', context)
+        #else redirect the user to the appropriate question page
+            elif subject == "Maths":
+                return redirect('/students/questionMaths/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty + '&number=' + number + '&exam_board=' + examBoard)
+        
+            elif subject == "Further Maths":
+                return redirect('/students/questionFurtherMaths/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty + '&number=' + number + '&exam_board=' + examBoard)
+        
+        else:
+            #if the user hasn't submitted yet
             context = {
-                'message': message,
+            'form': form,
             }
             return render(request, 'students/qform.html', context)
-        #else redirect the user to the appropriate question page
-        elif subject == "Maths":
-            return redirect('/students/questionMaths/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty + '&number=' + number + '&exam_board=' + examBoard)
-        
-        elif subject == "Further Maths":
-            return redirect('/students/questionFurtherMaths/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty + '&number=' + number + '&exam_board=' + examBoard)
-        
-    #if the form hasn't been submitted yet
-    context = {
-        'form': form,
-    }
-    return render(request, 'students/qform.html', context)
+    else:
+        #else do not load the question form.
+        return redirect('/home/signup/')
 
 def determine_points(word):
     """Returns the number of points to be added to a users topics depending on the difficulty."""
@@ -368,16 +400,18 @@ def testUserInput(input):
 
 def questionMaths(request):
     """Returns the maths question page."""
-    subject =  request.GET.get('subject')
-    if subject == "Maths":
-        topic =  request.GET.get('topic')
-        difficulty =  request.GET.get('difficulty')
-        number = request.GET.get('number')
-        examBoard = request.GET.get('exam_board')
-        student_questions = Question.objects.filter(subject="Maths", topic=topic, difficulty=difficulty, exam_board=examBoard)[:int(number)]
+    #If a user is in the StudentUser table load the question page
+    if 'user_id' in request.session:
+        subject =  request.GET.get('subject')
+        if subject == "Maths":
+            topic =  request.GET.get('topic')
+            difficulty =  request.GET.get('difficulty')
+            number = request.GET.get('number')
+            examBoard = request.GET.get('exam_board')
+            student_questions = Question.objects.filter(subject="Maths", topic=topic, difficulty=difficulty, exam_board=examBoard)[:int(number)]
 
         #if a user submits their answers in the question page
-        if request.method == 'POST':
+            if request.method == 'POST':
                 for q in student_questions:
 
                     #if the user has entered something
@@ -391,7 +425,7 @@ def questionMaths(request):
                             'student_questions': student_questions,
                             }
                             return render(request, 'students/questionMaths.html', context)
-                #if the answer in the question table and answer entered by the user are not equal
+                        #if the answer in the question table and answer entered by the user are not equal
                         else:
                             bad_message = "Incorrect Answer."
                             context = {
@@ -414,6 +448,9 @@ def questionMaths(request):
             'student_questions': student_questions,
             }
             return render(request, 'students/questionMaths.html', context)
+    else:
+        #else do not load the question page.
+        return redirect('/home/signup/')
     
 def questionFurtherMaths(request):
     """Returns the further maths question page."""

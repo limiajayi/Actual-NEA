@@ -19,11 +19,15 @@ def furtherMathsSubject(request):
     #if not the user requesting for this page is redirected to the sign up page
     else:
         return redirect('/home/signup/')
-
     
 def quadratics(request):
     """Returns the quadratics topic page"""
-    return render(request, 'topics/quadratics.html')
+    #if the user exists in the StudentUser table
+    if 'user_id' in request.session:
+        return render(request, 'topics/quadratics.html')
+    else:
+         #If the user doesn't exist in the StudentUser table, redirect the user to the sign up page
+        return redirect('/home/signup/')
 
 def quadraticsQuestions(request):
     """Returns the existing question page for maths with the appropriate parameters"""
